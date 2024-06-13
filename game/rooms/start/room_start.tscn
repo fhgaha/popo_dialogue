@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://djc6d8xu2c507"]
+
+[ext_resource type="Script" path="res://game/rooms/start/room_start.gd" id="1_voffu"]
+[ext_resource type="PackedScene" uid="uid://7csebfu7781j" path="res://game/characters/main/character_main.tscn" id="2_dkxf1"]
+[ext_resource type="PackedScene" uid="uid://bmpmnj7eotyxm" path="res://game/characters/npc/character_npc.tscn" id="3_x1yv1"]
+
+[node name="RoomStart" type="Node2D"]
+script = ExtResource("1_voffu")
+script_name = "Start"
+popochiu_placeholder = null
+
+[node name="WalkableAreas" type="Node2D" parent="."]
+
+[node name="Props" type="Node2D" parent="."]
+
+[node name="Hotspots" type="Node2D" parent="."]
+
+[node name="Regions" type="Node2D" parent="."]
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="Characters" type="Node2D" parent="."]
+
+[node name="CharacterMain *" parent="Characters" instance=ExtResource("2_dkxf1")]
+position = Vector2(240, 135)
+
+[node name="CharacterNpc *" parent="Characters" instance=ExtResource("3_x1yv1")]
+position = Vector2(363, 135)

@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://7csebfu7781j"]
+
+[ext_resource type="Script" path="res://game/characters/main/character_main.gd" id="1_hhd65"]
+[ext_resource type="Texture2D" uid="uid://chw1hkfrea28y" path="res://assets/tex/kenney_prototype-textures/PNG/Light/texture_01.png" id="2_vj1gw"]
+
+[node name="CharacterMain" type="Area2D"]
+script = ExtResource("1_hhd65")
+popochiu_placeholder = null
+script_name = "Main"
+description = "Main"
+cursor = 8
+interaction_polygon = PackedVector2Array()
+
+[node name="InteractionPolygon" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
+
+[node name="ScalingPolygon" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+
+[node name="BaselineHelper" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(-10000, 0, 10000, 0)
+width = 1.0
+
+[node name="WalkToHelper" type="Marker2D" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="WalkToHelper"]
+offset_left = -2.5
+offset_top = -2.5
+offset_right = 2.5
+offset_bottom = 2.5
+color = Color(0, 1, 1, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.0429688, 0.0440041)
+texture = ExtResource("2_vj1gw")
+
+[node name="DialogPos" type="Marker2D" parent="."]
+visible = false

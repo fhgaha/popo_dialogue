@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1g06al16cr6b"]
+
+[ext_resource type="FontFile" uid="uid://ct82v0d80hosb" path="res://game/graphic_interface/fonts/monkeyisland_1991.ttf" id="1_k4iru"]
+
+[node name="InteractionLine" type="RichTextLabel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = ExtResource("1_k4iru")
+bbcode_enabled = true
+text = "Player [color=edf171]click[/color] Toy car"
+fit_content = true

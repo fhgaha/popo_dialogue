@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cr2tm7w448idh"]
+
+[ext_resource type="Script" path="res://game/rooms/start/room_start_state.gd" id="1_mhcol"]
+
+[resource]
+resource_name = "Start"
+script = ExtResource("1_mhcol")
+script_name = "Start"
+scene = "res://game/rooms/start/room_start.tscn"
+visited = false
+visited_first_time = false
+visited_times = 0

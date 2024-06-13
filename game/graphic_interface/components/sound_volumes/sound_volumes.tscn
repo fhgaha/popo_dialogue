@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://71ct0e6hesxe"]
+
+[ext_resource type="Theme" uid="uid://dpequqav4rjaf" path="" id="1_sfkjp"]
+[ext_resource type="Script" path="res://game/graphic_interface/components/sound_volumes/sound_volumes.gd" id="2_7go7i"]
+
+[node name="SoundVolumes" type="GridContainer" groups=["popochiu_gui_component"]]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_sfkjp")
+columns = 2
+script = ExtResource("2_7go7i")
+
+[node name="ChannelsContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="SlidersContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
