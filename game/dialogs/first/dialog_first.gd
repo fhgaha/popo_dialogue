@@ -1,6 +1,8 @@
 @tool
 extends PopochiuDialog
 
+var nodes: Dictionary
+var cur_node: Dictionary
 
 #region Virtual ####################################################################################
 func _on_start() -> void:
@@ -15,11 +17,22 @@ func _on_start() -> void:
 	
 	#await C.Main.say("I start the dialogue")
 	
-	var chars = C._characters
-	turn_off_options_all()
-	var graph: DialogueData = load("res://game/dialogs/first/dialog_first_graph.tres")
-	var res:= load("res://game/dialogs/first/dialog_first.tres")
-	PopoGraphBridge.set_up_start_options(self, graph, res)
+	
+	#var characters = C._characters
+	#var graph: DialogueData = load("res://game/dialogs/first/dialog_first_graph.tres")
+	#nodes = graph.nodes
+	##var res:= load("res://game/dialogs/first/dialog_first.tres")
+	##PopoGraphBridge.set_up_start_options(self, graph, res)
+	#var dlg_node = PopoGraphBridge.find_first_dialogue(nodes)
+	#cur_node = dlg_node
+	#
+	#var opts: Array[PopochiuDialogOption] = []
+	#for opt_id:int in cur_node["v"]["options"]:
+		#var opt_val = cur_node["v"]["options"][opt_id]
+		#var popo_opt := create_opt(opt_val["text"], opt_val["text"])
+		## print(opt_val["text"])
+		#opts.append(popo_opt)
+	#update_options(opts)
 	
 	pass
 
@@ -46,6 +59,7 @@ func _option_selected(opt: PopochiuDialogOption) -> void:
 			#stop()
 	
 	#ask for options
+	
 	#set them up
 	
 	_show_options()
@@ -66,3 +80,13 @@ func _on_load(data: Dictionary) -> void:
 #endregion
 
 
+func update_options(array: Array[PopochiuDialogOption]) -> void:
+	options.clear()
+	options.append_array(array)
+
+func create_opt(id: String, text: String, visible: bool = true) -> PopochiuDialogOption:
+	var opt = PopochiuDialogOption.new()
+	opt.id = id
+	opt.text = text
+	opt.visible = visible
+	return opt

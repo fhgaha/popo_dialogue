@@ -28,8 +28,8 @@ nodes = {
 "text": "eating"
 }
 },
-"size": Vector2(300, 242),
-"speaker": "te"
+"size": Vector2(300, 275),
+"speaker": ""
 },
 "1_2": {
 "dialogue": "end",
@@ -42,7 +42,7 @@ nodes = {
 }
 },
 "size": Vector2(300, 240),
-"speaker": "te"
+"speaker": ""
 }
 }
 variables = {}

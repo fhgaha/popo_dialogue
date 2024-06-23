@@ -10,8 +10,10 @@ const SYMBOL := "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
 const POPOCHIU_CANVAS_EDITOR_MENU = preload(
 	"res://addons/popochiu/editor/canvas_editor_menu/popochiu_canvas_editor_menu.tscn"
 )
+const DIALOGUE_GRAPH = preload("res://addons/popochiu/editor/dialogue_graph/graph.tscn")
 
 var dock: Panel
+var dialogue_graph: DialogueGraph
 
 #var EditorInterface := get_editor_interface()
 var _editor_file_system := EditorInterface.get_resource_filesystem()
@@ -82,6 +84,10 @@ func _enter_tree() -> void:
 		EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU,
 		POPOCHIU_CANVAS_EDITOR_MENU.instantiate()
 	)
+	
+	# ---- Add dialogue graph on bottom panel
+	dialogue_graph = DIALOGUE_GRAPH.instantiate()
+	add_control_to_bottom_panel(dialogue_graph, "Popo Dialogue")
 
 
 func _exit_tree() -> void:
@@ -94,6 +100,10 @@ func _exit_tree() -> void:
 	for eip in _inspector_plugins:
 		if is_instance_valid(eip):
 			remove_inspector_plugin(eip)
+	
+	if is_instance_valid(dialogue_graph):
+		remove_control_from_bottom_panel(dialogue_graph)
+		dialogue_graph.queue_free()
 
 
 #endregion
@@ -196,3 +206,13 @@ func _on_dock_ready() -> void:
 
 
 #endregion
+
+# ---- Two methods below allow opening GraphData res in Popo Dialogue ---------------
+
+func _handles(object):
+	return object is GraphData
+
+func _edit(object):
+	if object is GraphData and is_instance_valid(dialogue_graph):
+		dialogue_graph.load_data(object.resource_path)
+		make_bottom_panel_item_visible(dialogue_graph)

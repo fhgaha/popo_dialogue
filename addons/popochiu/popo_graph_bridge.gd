@@ -1,29 +1,34 @@
 @tool
 class_name PopoGraphBridge extends Node
 
-static func set_up_start_options(
-	pd:PopochiuDialog, 
-	graph: DialogueData, 
-	res:PopochiuDialog
-	) -> void:
-	var start: String = find_start(graph)
+#static func set_up_start_options(
+	#pd:PopochiuDialog, 
+	#graph: DialogueData, 
+	#res:PopochiuDialog
+	#) -> void:
+	#var dlg:Dictionary = find_first_dialogue(graph.nodes)
+	#var dlg_id :String     = dlg["k"]
+	#var dlg_val:Dictionary = dlg["v"]
+	##print(dlg_id, ": ", dlg_val)
+	#
+	#var opts: Array[PopochiuDialogOption] = []
+	#for opt_id:int in dlg_val["options"]:
+		#var opt_val = dlg_val["options"][opt_id]
+		#var popo_opt := popo_opt(opt_val["text"], opt_val["text"])
+		#print(opt_val["text"])
+		#opts.append(popo_opt)
+	#update_dialog(opts, res)
+	#pass
+
+static func find_first_dialogue(nodes: Dictionary) -> Dictionary:
+	var start: String = find_start(nodes)
 	assert(start != "")
 	#print(start, " ", graph.nodes[start])
 	
-	var dlg:Dictionary = get_fist_dialogue_node(start, graph)
+	var dlg:Dictionary = get_fist_dialogue_node(start, nodes)
 	assert(len(dlg) != 0)
-	var dlg_id :String = dlg["k"]
-	var dlg_val:Dictionary = dlg["v"]
 	#print(dlg_id, ": ", dlg_val)
-	
-	var opts: Array[PopochiuDialogOption] = []
-	for opt_id:int in dlg_val["options"]:
-		var opt_val = dlg_val["options"][opt_id]
-		var popo_opt := popo_opt(opt_val["text"], opt_val["text"])
-		print(opt_val["text"])
-		opts.append(popo_opt)
-	update_dialog(opts, res)
-	pass
+	return dlg
 
 #"options": { 
 	#0: { 
@@ -33,21 +38,21 @@ static func set_up_start_options(
 		#} 
 	#}
 
-static func get_fist_dialogue_node(id: String, graph: DialogueData) -> Dictionary:
-	var val:Dictionary = graph.nodes[id]
+static func get_fist_dialogue_node(start_id: String, nodes: Dictionary) -> Dictionary:
+	var val:Dictionary = nodes[start_id]
 	if val.has("dialogue"):
-		return {"k": id, "v": val}
+		return {"k": start_id, "v": val}
 	if val.has("link") and val["link"].to_lower() == "end":
 		printerr("PopoGraphBridge: couldnt find dialogue node!")
 		return {}
 	
-	var next_id = val["link"]
-	return get_fist_dialogue_node(next_id, graph)
+	var next_id: String = val["link"]
+	return get_fist_dialogue_node(next_id, nodes)
 
-static func find_start(graph: DialogueData) -> String:
-	for k in graph.nodes:
-		var val:Dictionary = graph.nodes[k]
-		#print(k, ": ", val)
+static func find_start(nodes: Dictionary) -> String:
+	for k in nodes:
+		var val:Dictionary = nodes[k]
+		print(k, ": ", val)
 		if val.has("start_id"):
 			return k
 	printerr("PopoGraphBridge: couldnt find start node!")
