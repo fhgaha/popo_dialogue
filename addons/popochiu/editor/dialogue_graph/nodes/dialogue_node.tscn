@@ -16,6 +16,10 @@ color_regions = {
 
 [node name="DialogueNode" type="GraphNode"]
 custom_minimum_size = Vector2(300, 240)
+offset_right = 300.0
+offset_bottom = 240.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/separation = 4
 resizable = true
 title = "Dialogue"
@@ -39,22 +43,16 @@ slot/1/right_icon = null
 slot/1/draw_stylebox = true
 script = ExtResource("1_bfopg")
 
-[node name="Slot-1" type="Control" parent="."]
+[node name="Slot-1" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="SpeakerLabel" type="Label" parent="Slot-1"]
 layout_mode = 2
-offset_top = 4.0
-offset_right = 264.0
-offset_bottom = 27.0
 text = "Speaker"
 
 [node name="SpeakerContainer" type="HBoxContainer" parent="Slot-1"]
 layout_mode = 2
-offset_top = 31.0
-offset_right = 264.0
-offset_bottom = 51.0
 
 [node name="Speaker" type="OptionButton" parent="Slot-1/SpeakerContainer"]
 layout_mode = 2
@@ -70,16 +68,10 @@ stretch_mode = 3
 
 [node name="DialogueLabel" type="Label" parent="Slot-1"]
 layout_mode = 2
-offset_top = 55.0
-offset_right = 264.0
-offset_bottom = 78.0
 text = "Dialogue"
 
 [node name="DialogueContainer" type="HBoxContainer" parent="Slot-1"]
 layout_mode = 2
-offset_top = 82.0
-offset_right = 264.0
-offset_bottom = 181.0
 size_flags_vertical = 3
 
 [node name="Dialogue" type="TextEdit" parent="Slot-1/DialogueContainer"]
@@ -107,8 +99,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 796.0
-offset_bottom = 596.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -139,3 +131,7 @@ one_shot = true
 
 [node name="Option-1" parent="." instance=ExtResource("4_ishc2")]
 layout_mode = 2
+size_flags_vertical = 8
+
+[connection signal="item_selected" from="Slot-1/SpeakerContainer/Speaker" to="." method="_on_speaker_item_selected"]
+[connection signal="pressed" from="Slot-1/SpeakerContainer/Speaker" to="." method="_on_speaker_pressed"]
