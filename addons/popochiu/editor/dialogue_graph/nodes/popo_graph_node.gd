@@ -1,6 +1,8 @@
 @tool
 class_name PopoGraphNode extends GraphNode
 
-var type: String 
+enum Type{ start, dialogue }
+
+var type: Type
 var offset: Vector2 = Vector2.ZERO
 var data:= {}

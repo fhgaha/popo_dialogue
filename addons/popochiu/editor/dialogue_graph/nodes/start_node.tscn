@@ -4,7 +4,6 @@
 
 [node name="StartNode" type="GraphNode"]
 custom_minimum_size = Vector2(60, 60)
-anchors_preset = -1
 offset_right = 114.0
 offset_bottom = 80.0
 grow_horizontal = 2

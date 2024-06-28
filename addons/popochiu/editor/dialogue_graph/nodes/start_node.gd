@@ -2,4 +2,4 @@
 class_name StartNode extends PopoGraphNode
 
 func _ready() -> void:
-	type = "start"
+	type = PopoGraphNode.Type.start

@@ -70,8 +70,9 @@ func _on_graph_edit_disconnection_request(
 
 func _on_save_pressed() -> void:
 	#save_data("res://game/dialogs/first/test/")
-	if !ResourceLoader.exists("res://game/dialogs/first/test/test.res"):
-		save_data("res://game/dialogs/first/test/test.res")
+	var save_path = "res://game/dialogs/first/test/test.res"
+	if !ResourceLoader.exists(save_path):
+		save_data(save_path)
 	else:
 		save_dialog.show()
 
@@ -85,6 +86,13 @@ func save_data(save_path: String) -> void:
 			node_data.type = node.type
 			node_data.offset = node.position_offset
 			node_data.data = node.data
+			if node is StartNode:
+				pass
+			elif node is DialogueNode:
+				node_data.data["speaker"] = node.speaker
+				node_data.data["text"]    = node.text
+				node_data.data["options"] = node.options.map(
+					func(opt): return opt.text)
 			graph_data.nodes.append(node_data)
 	if ResourceSaver.save(graph_data, save_path) == OK:
 		print("saved")
@@ -108,20 +116,27 @@ func load_data(file_path: String):
 			init_graph(graph_data)
 		else:
 			# Error loading data
-			pass
+			push_error("couldnt load data from %s", file_path)
 	else:
 		# File not found
-		pass
+		push_error("couldnt find file at %s", file_path)
 
 func init_graph(graph_data: GraphData):
 	clear_graph()
 	await get_tree().process_frame
-	for node:NodeData in graph_data.nodes:
+	for node: NodeData in graph_data.nodes:
 		# Get new node from factory autoload (singleton)
-		var gnode:PopoGraphNode = GraphNodeFactory.create_node(node.type)
+		var gnode: PopoGraphNode = GraphNodeFactory.create_node(node.type)
 		gnode.position_offset = node.offset
 		gnode.name = node.name
+		match node.type:
+			PopoGraphNode.Type.start:
+				pass
+			PopoGraphNode.Type.dialogue:
+				gnode.load_data(node)
+		
 		graph_edit.add_child(gnode)
+	
 	for con in graph_data.connections:
 		var _e = graph_edit.connect_node(
 			con.from_node, con.from_port, con.to_node, con.to_port)

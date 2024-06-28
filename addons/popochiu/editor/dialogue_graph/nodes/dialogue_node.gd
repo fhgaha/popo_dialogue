@@ -3,7 +3,20 @@ class_name DialogueNode extends PopoGraphNode
 
 const OPTION_SCENE = preload("res://addons/popochiu/editor/dialogue_graph/dialogue_option.tscn")
 
-@onready var speaker: OptionButton = $"Slot-1/SpeakerContainer/Speaker"
+@onready var speaker_node: OptionButton = $"Slot-1/SpeakerContainer/Speaker"
+@onready var dialogue: TextEdit = %Dialogue
+
+var speaker: String:
+	get: return speaker_node.text #can be empty string
+	set(val):
+		if !is_node_ready(): await ready
+		speaker_node.text = val
+
+var text: String:
+	get: return dialogue.text
+	set(val):
+		if !is_node_ready(): await ready
+		dialogue.text = val
 
 var options: Array[DialogueOption]:
 	get:
@@ -14,7 +27,7 @@ var options: Array[DialogueOption]:
 var base_color: Color = Color.WHITE
 
 func _ready() -> void:
-	type = "dialogue"
+	type = PopoGraphNode.Type.dialogue
 	
 	for opt: DialogueOption in options:
 		if !opt.text_changed.is_connected(_on_option_text_changed):
@@ -49,7 +62,6 @@ func update_options():
 	add_empty_option()
 
 func update_slots():
-	await get_tree().process_frame
 	if options.size() == 1:
 		set_slot(options[0].get_index(), 
 			false, 0, base_color, 
@@ -57,29 +69,55 @@ func update_slots():
 		return
 	
 	for option: DialogueOption in options:
-		var enable_right_port : bool = !option.text.is_empty()
-		set_slot(option.get_index(), 
-			false, 0, base_color, 
-			enable_right_port, 0, base_color)
+		if option.text.is_empty():
+			set_slot(option.get_index(), 
+				false, 0, base_color, 
+				false, 0, base_color)
+		else:
+			var enable_right_port : bool = !option.text.is_empty()
+			set_slot(option.get_index(), 
+				false, 0, base_color, 
+				enable_right_port, 0, base_color)
 
 func _on_speaker_pressed() -> void:
 	var path:= "res://game/characters/"
 	assert(DirAccess.dir_exists_absolute(path), "No characters created!")
 	
-	speaker.clear()
+	speaker_node.clear()
 	var dir = DirAccess.open(path)
 	dir.list_dir_begin()
 	var file_name = dir.get_next()
 	while file_name != "":
 		if dir.current_is_dir():
-			speaker.add_item(file_name)
+			speaker_node.add_item(file_name)
 		file_name = dir.get_next()
 	dir.list_dir_end()
 
 func _on_speaker_item_selected(index: int) -> void:
-
-	
 	pass
 
+func load_data(node: NodeData):
+	speaker = node.data["speaker"]
+	text    = node.data["text"]   
+	load_options(node.data["options"])
 
+func load_options(options_names: Array):
+	print(options_names)
+	var i: int = 1 
+	clear_options()
+	#print(options)
+	for opt_text: String in options_names:
+		var opt = OPTION_SCENE.instantiate()
+		opt.text = opt_text
+		opt.name = "Option_%s" % i
+		i += 1
+		add_child(opt)
+		options.append(opt)
+	if !is_node_ready(): await ready
+	#print(options)
+	update_slots()
 
+func clear_options():
+	for opt: DialogueOption in get_children().filter(func(c): return c is DialogueOption):
+		opt.free()
+	options.clear()

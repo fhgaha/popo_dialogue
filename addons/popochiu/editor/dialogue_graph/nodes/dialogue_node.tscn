@@ -129,7 +129,7 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
-[node name="Option-1" parent="." instance=ExtResource("4_ishc2")]
+[node name="Option_1" parent="." instance=ExtResource("4_ishc2")]
 layout_mode = 2
 size_flags_vertical = 8
 
