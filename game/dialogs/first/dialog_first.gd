@@ -34,6 +34,8 @@ func _on_start() -> void:
 		#opts.append(popo_opt)
 	#update_options(opts)
 	
+	#var p = get_path()
+	#print(p)
 	pass
 
 

@@ -28,6 +28,7 @@ var base_color: Color = Color.WHITE
 
 func _ready() -> void:
 	type = PopoGraphNode.Type.dialogue
+	name = "DialogueNode"
 	
 	for opt: DialogueOption in options:
 		if !opt.text_changed.is_connected(_on_option_text_changed):
@@ -59,6 +60,7 @@ func update_options():
 	for opt: DialogueOption in options:
 		if opt.text.is_empty():
 			opt.queue_free()
+			await opt.tree_exited
 	add_empty_option()
 
 func update_slots():
@@ -102,19 +104,13 @@ func load_data(node: NodeData):
 	load_options(node.data["options"])
 
 func load_options(options_names: Array):
-	print(options_names)
-	var i: int = 1 
 	clear_options()
-	#print(options)
 	for opt_text: String in options_names:
 		var opt = OPTION_SCENE.instantiate()
 		opt.text = opt_text
-		opt.name = "Option_%s" % i
-		i += 1
 		add_child(opt)
 		options.append(opt)
 	if !is_node_ready(): await ready
-	#print(options)
 	update_slots()
 
 func clear_options():

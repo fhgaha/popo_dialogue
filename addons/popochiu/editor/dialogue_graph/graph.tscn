@@ -61,7 +61,6 @@ filters = PackedStringArray("*.res")
 title = "Open a File"
 position = Vector2i(235, 36)
 size = Vector2i(400, 410)
-ok_button_text = "Open"
 dialog_autowrap = true
 file_mode = 0
 root_subfolder = "res://game/dialogs"

@@ -9,6 +9,8 @@ const DIALOGUE_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes
 @onready var save_dialog: FileDialog = $SaveDialog
 @onready var load_dialog: FileDialog = $LoadDialog
 
+var save_path = "res://game/dialogs/first/dialog_first_graph.res"
+
 func _ready() -> void:
 	add_node_menu.hide()
 	save_dialog.hide()
@@ -69,8 +71,6 @@ func _on_graph_edit_disconnection_request(
 	graph_edit.disconnect_node(from_node, from_port, to_node, to_port)
 
 func _on_save_pressed() -> void:
-	#save_data("res://game/dialogs/first/test/")
-	var save_path = "res://game/dialogs/first/test/test.res"
 	if !ResourceLoader.exists(save_path):
 		save_data(save_path)
 	else:
@@ -98,6 +98,7 @@ func save_data(save_path: String) -> void:
 		print("saved")
 	else:
 		print("Error saving graph_data")
+	print("saved nodes count: ", save_path, ", ",  graph_data.nodes)
 
 func _on_save_dialog_file_selected(path: String) -> void:
 	save_data(path)
@@ -112,6 +113,7 @@ func _on_load_dialog_file_selected(path: String) -> void:
 func load_data(file_path: String):
 	if ResourceLoader.exists(file_path):
 		var graph_data = ResourceLoader.load(file_path)
+		print("loading node datas: ", file_path, ", ", graph_data.nodes)
 		if graph_data is GraphData:
 			init_graph(graph_data)
 		else:
@@ -122,8 +124,8 @@ func load_data(file_path: String):
 		push_error("couldnt find file at %s", file_path)
 
 func init_graph(graph_data: GraphData):
-	clear_graph()
-	await get_tree().process_frame
+	await clear_graph()
+	
 	for node: NodeData in graph_data.nodes:
 		# Get new node from factory autoload (singleton)
 		var gnode: PopoGraphNode = GraphNodeFactory.create_node(node.type)
@@ -136,8 +138,10 @@ func init_graph(graph_data: GraphData):
 				gnode.load_data(node)
 		
 		graph_edit.add_child(gnode)
+		#prints("saved node:", node, "loaded node:", gnode)
 	
 	for con in graph_data.connections:
+		#prints("con:", con.from_node, con.from_port, con.to_node, con.to_port)
 		var _e = graph_edit.connect_node(
 			con.from_node, con.from_port, con.to_node, con.to_port)
 
@@ -147,3 +151,4 @@ func clear_graph():
 	for node in nodes:
 		if node is GraphNode:
 			node.queue_free()
+			await node.tree_exited
