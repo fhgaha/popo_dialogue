@@ -41,9 +41,11 @@ func _on_start() -> void:
 		await cb.call()
 	if data.options.size() == 0:
 		options.clear()
-	else:
-		for opt in data.options:
-			pass
+	var opts: Array[PopochiuDialogOption] = []
+	for op: String in data.options:
+		var popo_opt:PopochiuDialogOption = create_opt(op, op)
+		opts.append(popo_opt)
+	update_options(opts)
 
 func _option_selected(opt: PopochiuDialogOption) -> void:
 	# You can make the player character say the selected option with:
@@ -74,8 +76,8 @@ func _option_selected(opt: PopochiuDialogOption) -> void:
 	for cb: Callable in data.callables:
 		await cb.call()
 	var opts: Array[PopochiuDialogOption] = []
-	for op in data.options:
-		var popo_opt := create_opt("id", "text")
+	for op: String in data.options:
+		var popo_opt:PopochiuDialogOption = create_opt(op, op)
 		opts.append(popo_opt)
 	update_options(opts)
 	

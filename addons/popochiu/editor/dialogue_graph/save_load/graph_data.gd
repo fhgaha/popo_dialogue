@@ -8,11 +8,43 @@ class ToPopochiuDialogue:
 @export var nodes: Array
 
 var cur_node: NodeData
+ 
+func handle(option: String = "", data = null) -> ToPopochiuDialogue:
+	if !data: data = ToPopochiuDialogue.new()
+	if !cur_node: cur_node = get_start_node()
+	var from_node_cons: Array = connections.filter(
+		func(cn): return cn["from_node"] == cur_node.name)
+	if from_node_cons.size() == 0:
+		#reached end
+		data.callables.append(func(): await D.finish_dialog())
+		return data
+	
+	cur_node = next(cur_node, option)
+	
+	match cur_node.type:
+		PopoGraphNode.Type.dialogue:
+			var speaker_name: String = cur_node.data["speaker"]
+			var character: PopochiuCharacter = C._characters[speaker_name]
+			var text: String = cur_node.data["text"]   
+			if !text.is_empty():
+				data.callables.append(func(): return await character.say(text))
+			var options: Array = cur_node.data["options"]
+			match options.size():
+				0:
+					push_error("how is it zero options?")
+				1: #no need to click an option, go forward
+					handle("", data)
+				_: #player needs to click an option
+					var opts_typed: Array[String] = []
+					opts_typed.assign(options)
+					data.options = opts_typed
+					print(data.options)
+	
+	return data
 
 func get_start_node() -> NodeData:
 	for n: NodeData in nodes:
 		if n.type == PopoGraphNode.Type.start:
-			#print(PopoGraphNode.type_as_string(n.type))
 			return n
 	push_error("Start node was not found")
 	return null
@@ -20,7 +52,7 @@ func get_start_node() -> NodeData:
 func next(node: NodeData, option: String = "") -> NodeData:
 	var from_node_cons: Array = connections.filter(
 		func(cn): return cn["from_node"] == node.name)
-	
+	print(from_node_cons.size())
 	match from_node_cons.size():
 		0:
 			push_error("This node does not have connections")
@@ -32,36 +64,10 @@ func next(node: NodeData, option: String = "") -> NodeData:
 			)[0]
 			return next_node
 		_:
-			assert(!option.is_empty(), "Option should not be emtpy here")
+			assert(!option.is_empty(), "Option should not be emtpy at this point")
 			var opts = node.data["options"].filter(
 				func(opt): return opt.text == option)
 			assert(opts.size() > 0)
+			print(opts)
 			return null
 	pass
- 
-func handle(option: String = "", data = null) -> ToPopochiuDialogue:
-	if !cur_node: cur_node = get_start_node()
-	var from_node_cons: Array = connections.filter(
-		func(cn): return cn["from_node"] == cur_node.name)
-	if from_node_cons.size() == 0:
-		#reached end
-		data.callables.append(func(): await D.finish_dialog())
-		return data
-	
-	cur_node = next(cur_node)
-	if !data:
-		data = ToPopochiuDialogue.new()
-	
-	match cur_node.type:
-		PopoGraphNode.Type.dialogue:
-			var speaker_name: String = cur_node.data["speaker"]
-			var character: PopochiuCharacter = C._characters[speaker_name]
-			var text: String = cur_node.data["text"]   
-			if !text.is_empty():
-				data.callables.append(func(): return await character.say(text))
-			var options: Array = cur_node.data["options"]
-			if options.size() == 1:
-				handle("", data)
-				pass
-	
-	return data
