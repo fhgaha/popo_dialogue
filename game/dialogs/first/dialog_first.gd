@@ -1,8 +1,7 @@
 @tool
 extends PopochiuDialog
 
-var nodes: Dictionary
-var cur_node: Dictionary
+var graph: GraphData
 
 #region Virtual ####################################################################################
 func _on_start() -> void:
@@ -34,10 +33,17 @@ func _on_start() -> void:
 		#opts.append(popo_opt)
 	#update_options(opts)
 	
-	#var p = get_path()
-	#print(p)
-	pass
-
+	#res://game/dialogs/first/dialog_first.tres
+	var graph_path: String = resource_path.get_slice('.', 0) + "_graph.res"
+	graph = load(graph_path)
+	var data: GraphData.ToPopochiuDialogue = graph.handle()
+	for cb: Callable in data.callables:
+		await cb.call()
+	if data.options.size() == 0:
+		options.clear()
+	else:
+		for opt in data.options:
+			pass
 
 func _option_selected(opt: PopochiuDialogOption) -> void:
 	# You can make the player character say the selected option with:
@@ -63,6 +69,15 @@ func _option_selected(opt: PopochiuDialogOption) -> void:
 	#ask for options
 	
 	#set them up
+	
+	var data: GraphData.ToPopochiuDialogue = graph.handle(opt.text)
+	for cb: Callable in data.callables:
+		await cb.call()
+	var opts: Array[PopochiuDialogOption] = []
+	for op in data.options:
+		var popo_opt := create_opt("id", "text")
+		opts.append(popo_opt)
+	update_options(opts)
 	
 	_show_options()
 

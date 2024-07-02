@@ -12,7 +12,8 @@ cursor = 8
 interaction_polygon = PackedVector2Array()
 
 [node name="InteractionPolygon" type="CollisionPolygon2D" parent="."]
-visible = false
+position = Vector2(0, -0.999999)
+scale = Vector2(1.25, 2.5)
 polygon = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
 
 [node name="ScalingPolygon" type="CollisionPolygon2D" parent="."]
@@ -40,4 +41,3 @@ scale = Vector2(0.0390625, 0.078125)
 texture = ExtResource("2_f63fi")
 
 [node name="DialogPos" type="Marker2D" parent="."]
-visible = false

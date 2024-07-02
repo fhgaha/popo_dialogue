@@ -98,7 +98,6 @@ func save_data(save_path: String) -> void:
 		print("saved")
 	else:
 		print("Error saving graph_data")
-	print("saved nodes count: ", save_path, ", ",  graph_data.nodes)
 
 func _on_save_dialog_file_selected(path: String) -> void:
 	save_data(path)
@@ -113,7 +112,7 @@ func _on_load_dialog_file_selected(path: String) -> void:
 func load_data(file_path: String):
 	if ResourceLoader.exists(file_path):
 		var graph_data = ResourceLoader.load(file_path)
-		print("loading node datas: ", file_path, ", ", graph_data.nodes)
+		#print("loading node datas: ", file_path, ", ", graph_data.nodes)
 		if graph_data is GraphData:
 			init_graph(graph_data)
 		else:
@@ -152,3 +151,8 @@ func clear_graph():
 		if node is GraphNode:
 			node.queue_free()
 			await node.tree_exited
+
+#region Process Run Time
+
+
+#endregion

@@ -91,7 +91,7 @@ func _on_speaker_pressed() -> void:
 	var file_name = dir.get_next()
 	while file_name != "":
 		if dir.current_is_dir():
-			speaker_node.add_item(file_name)
+			speaker_node.add_item(file_name.to_pascal_case())
 		file_name = dir.get_next()
 	dir.list_dir_end()
 
