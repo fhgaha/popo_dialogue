@@ -9,7 +9,7 @@ const DIALOGUE_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes
 @onready var save_dialog: FileDialog = $SaveDialog
 @onready var load_dialog: FileDialog = $LoadDialog
 
-var save_path = "res://game/dialogs/first/dialog_first_graph.res"
+var save_path := "res://game/dialogs/first/dialog_first_graph.res"
 
 func _ready() -> void:
 	add_node_menu.hide()
