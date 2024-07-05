@@ -27,7 +27,6 @@ var options: Array[DialogueOption]:
 var base_color: Color = Color.WHITE
 
 func _ready() -> void:
-	type = PopoGraphNode.Type.dialogue
 	name = "DialogueNode"
 	
 	for opt: DialogueOption in options:
@@ -117,3 +116,14 @@ func clear_options():
 	for opt: DialogueOption in get_children().filter(func(c): return c is DialogueOption):
 		opt.free()
 	options.clear()
+
+func as_node_data() -> NodeData:
+	var data := DialogueNodeData.new()
+	data.name         = name
+	data.offset       = position_offset
+	data.speaker_name = speaker
+	data.text         = text
+	var opts : Array[String] = []
+	opts.assign(options.map(func(opt): return opt.text))
+	data.options      = opts
+	return data

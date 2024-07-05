@@ -9,7 +9,7 @@ const DIALOGUE_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes
 @onready var save_dialog: FileDialog = $SaveDialog
 @onready var load_dialog: FileDialog = $LoadDialog
 
-var save_path := "res://game/dialogs/first/dialog_first_graph.res"
+var resource_path : String
 
 func _ready() -> void:
 	add_node_menu.hide()
@@ -71,8 +71,9 @@ func _on_graph_edit_disconnection_request(
 	graph_edit.disconnect_node(from_node, from_port, to_node, to_port)
 
 func _on_save_pressed() -> void:
-	if !ResourceLoader.exists(save_path):
-		save_data(save_path)
+	assert(!resource_path.is_empty(), "DialogueGraph: resource_path is empty")
+	if !ResourceLoader.exists(resource_path):
+		save_data(resource_path)
 	else:
 		save_dialog.show()
 
@@ -81,18 +82,7 @@ func save_data(save_path: String) -> void:
 	graph_data.connections = graph_edit.get_connection_list()
 	for node in graph_edit.get_children():
 		if node is PopoGraphNode:
-			var node_data := NodeData.new()
-			node_data.name = node.name
-			node_data.type = node.type
-			node_data.offset = node.position_offset
-			node_data.data = node.data
-			if node is StartNode:
-				pass
-			elif node is DialogueNode:
-				node_data.data["speaker"] = node.speaker
-				node_data.data["text"]    = node.text
-				node_data.data["options"] = node.options.map(
-					func(opt): return opt.text)
+			var node_data = node.as_node_data()
 			graph_data.nodes.append(node_data)
 	if ResourceSaver.save(graph_data, save_path) == OK:
 		print("saved")
@@ -111,6 +101,7 @@ func _on_load_dialog_file_selected(path: String) -> void:
 
 func load_data(file_path: String):
 	if ResourceLoader.exists(file_path):
+		resource_path = file_path
 		var graph_data = ResourceLoader.load(file_path)
 		#print("loading node datas: ", file_path, ", ", graph_data.nodes)
 		if graph_data is GraphData:
@@ -127,20 +118,18 @@ func init_graph(graph_data: GraphData):
 	
 	for node: NodeData in graph_data.nodes:
 		# Get new node from factory autoload (singleton)
-		var gnode: PopoGraphNode = GraphNodeFactory.create_node(node.type)
+		var gnode: PopoGraphNode = GraphNodeFactory.create_node(node)
 		gnode.position_offset = node.offset
 		gnode.name = node.name
-		match node.type:
-			PopoGraphNode.Type.start:
+		match node:
+			StartNode:
 				pass
-			PopoGraphNode.Type.dialogue:
+			DialogueNode:
 				gnode.load_data(node)
 		
 		graph_edit.add_child(gnode)
-		#prints("saved node:", node, "loaded node:", gnode)
 	
 	for con in graph_data.connections:
-		#prints("con:", con.from_node, con.from_port, con.to_node, con.to_port)
 		var _e = graph_edit.connect_node(
 			con.from_node, con.from_port, con.to_node, con.to_port)
 
@@ -151,8 +140,3 @@ func clear_graph():
 		if node is GraphNode:
 			node.queue_free()
 			await node.tree_exited
-
-#region Process Run Time
-
-
-#endregion

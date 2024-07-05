@@ -9,7 +9,7 @@ class ToPopochiuDialogue:
 
 var cur_node: NodeData
  
-func handle(option: String = "", data = null) -> ToPopochiuDialogue:
+func handle(option: String = "", data: ToPopochiuDialogue = null) -> ToPopochiuDialogue:
 	if !data: data = ToPopochiuDialogue.new()
 	if !cur_node: cur_node = get_start_node()
 	var from_node_cons: Array = connections.filter(
@@ -21,33 +21,32 @@ func handle(option: String = "", data = null) -> ToPopochiuDialogue:
 	
 	cur_node = next(cur_node, option)
 	
-	match cur_node.type:
-		PopoGraphNode.Type.dialogue:
-			var speaker_name: String = cur_node.data["speaker"]
-			var character: PopochiuCharacter = C._characters[speaker_name]
-			var text: String = cur_node.data["text"]   
-			if !text.is_empty():
-				data.callables.append(func(): return await character.say(text))
-			var options: Array = cur_node.data["options"]
-			match options.size():
-				0:
-					push_error("how is it zero options?")
-				1: #no need to click an option, go forward
-					handle("", data)
-				_: #player needs to click an option
-					var opts_typed: Array[String] = []
-					opts_typed.assign(options)
-					data.options = opts_typed
-					print(data.options)
+	#type matching not implemented >.<
+	if   cur_node is StartNodeData:
+		pass
+	elif cur_node is DialogueNodeData:
+		cur_node = cur_node as DialogueNodeData
+		var speaker_name: String = cur_node.speaker_name
+		var character: PopochiuCharacter = C._characters[speaker_name]
+		var text: String = cur_node.text
+		if !text.is_empty():
+			data.callables.append(func(): return await character.say(text))
+		var options: Array[String] = cur_node.options
+		match options.size():
+			0:
+				push_error("Here options should not be empty")
+			1: #no need to click an option, go forward
+				handle("", data)
+			_: #player needs to click an option
+				data.options = options
 	
 	return data
 
 func get_start_node() -> NodeData:
-	for n: NodeData in nodes:
-		if n.type == PopoGraphNode.Type.start:
-			return n
-	push_error("Start node was not found")
-	return null
+	assert(
+		nodes.any(func(n: NodeData): return n is StartNodeData),
+		"No start node created")
+	return nodes.filter(func(n: NodeData): return n is StartNodeData)[0]
 
 func next(node: NodeData, option: String = "") -> NodeData:
 	var from_node_cons: Array = connections.filter(
@@ -79,5 +78,5 @@ func next(node: NodeData, option: String = "") -> NodeData:
 					return n.name == str(con["to_node"])
 			)[0]
 			return next_node
-		
+	
 	pass
