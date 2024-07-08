@@ -1,9 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://l6dsw0ob177j"]
-
-[ext_resource type="Script" path="res://game/dialogs/aaa/dialog_aaa.gd" id="1_uos4t"]
-
-[resource]
-resource_name = "Aaa"
-script = ExtResource("1_uos4t")
-script_name = "Aaa"
-options = Array[Resource("res://addons/popochiu/engine/objects/dialog/popochiu_dialog_option.gd")]([])

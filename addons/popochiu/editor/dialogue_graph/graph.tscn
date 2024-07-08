@@ -2,42 +2,51 @@
 
 [ext_resource type="Script" path="res://addons/popochiu/editor/dialogue_graph/graph.gd" id="1_rtjv4"]
 
-[node name="Graph" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Graph" type="VBoxContainer"]
+offset_right = 480.0
+offset_bottom = 270.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_rtjv4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 31.0
-grow_horizontal = 2
+[node name="TopPanel" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
 
-[node name="Add" type="Button" parent="HBoxContainer"]
+[node name="Group1" type="HBoxContainer" parent="TopPanel"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Add" type="Button" parent="TopPanel/Group1"]
 layout_mode = 2
 text = "Add"
 
-[node name="Save" type="Button" parent="HBoxContainer"]
+[node name="Save" type="Button" parent="TopPanel/Group1"]
 layout_mode = 2
 text = "Save"
 
-[node name="Load" type="Button" parent="HBoxContainer"]
+[node name="Load" type="Button" parent="TopPanel/Group1"]
 layout_mode = 2
 text = "Load"
 
+[node name="Spacer" type="Control" parent="TopPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Group2" type="HBoxContainer" parent="TopPanel"]
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="FileName" type="Label" parent="TopPanel/Group2"]
+layout_mode = 2
+text = " "
+
 [node name="GraphEdit" type="GraphEdit" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 35.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_vertical = 3
 snapping_enabled = false
 snapping_distance = 5
 right_disconnects = true
@@ -51,13 +60,6 @@ item_0/id = 0
 item_1/text = "Dialogue"
 item_1/id = 1
 
-[node name="SaveDialog" type="FileDialog" parent="."]
-position = Vector2i(235, 36)
-size = Vector2i(400, 410)
-dialog_autowrap = true
-root_subfolder = "res://game/dialogs"
-filters = PackedStringArray("*.res")
-
 [node name="LoadDialog" type="FileDialog" parent="."]
 title = "Open a File"
 position = Vector2i(235, 36)
@@ -68,13 +70,12 @@ file_mode = 0
 root_subfolder = "res://game/dialogs"
 filters = PackedStringArray("*.res")
 
-[connection signal="pressed" from="HBoxContainer/Add" to="." method="_on_add_pressed"]
-[connection signal="pressed" from="HBoxContainer/Save" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="HBoxContainer/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="TopPanel/Group1/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="TopPanel/Group1/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="TopPanel/Group1/Load" to="." method="_on_load_pressed"]
 [connection signal="connection_request" from="GraphEdit" to="." method="_on_graph_edit_connection_request"]
 [connection signal="delete_nodes_request" from="GraphEdit" to="." method="_on_graph_edit_delete_nodes_request"]
 [connection signal="disconnection_request" from="GraphEdit" to="." method="_on_graph_edit_disconnection_request"]
 [connection signal="popup_request" from="GraphEdit" to="." method="_on_graph_edit_popup_request"]
 [connection signal="id_pressed" from="GraphEdit/AddNodeMenu" to="." method="_on_add_node_menu_id_pressed"]
-[connection signal="file_selected" from="SaveDialog" to="." method="_on_save_dialog_file_selected"]
 [connection signal="file_selected" from="LoadDialog" to="." method="_on_load_dialog_file_selected"]

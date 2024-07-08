@@ -6,14 +6,13 @@ const DIALOGUE_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes
 
 @onready var graph_edit: GraphEdit = $GraphEdit
 @onready var add_node_menu: PopupMenu = $GraphEdit/AddNodeMenu
-@onready var save_dialog: FileDialog = $SaveDialog
 @onready var load_dialog: FileDialog = $LoadDialog
+@onready var file_name_label: Label = $TopPanel/Group2/FileName
 
 var res_path : String
 
 func _ready() -> void:
 	add_node_menu.hide()
-	save_dialog.hide()
 	var char_names:PackedStringArray = DirAccess.get_directories_at(
 		"res://game/characters/")
 
@@ -72,13 +71,12 @@ func _on_graph_edit_disconnection_request(
 
 func _on_save_pressed() -> void:
 	assert(!res_path.is_empty(), "DialogueGraph: resource_path is empty")
-	if !ResourceLoader.exists(res_path):
-		save_data(res_path)
-	else:
-		save_dialog.show()
+	save_data(res_path)
 
 func save_data(save_path: String) -> void:
 	var graph_data := GraphData.new()
+	graph_data.resource_name = save_path.split('/', false)[-1]
+	prints("set grph name:", graph_data.resource_name)
 	graph_data.take_over_path(save_path)
 	graph_data.connections = graph_edit.get_connection_list()
 	for node in graph_edit.get_children():
@@ -90,11 +88,8 @@ func save_data(save_path: String) -> void:
 	else:
 		print("Error saving graph_data")
 
-func _on_save_dialog_file_selected(path: String) -> void:
-	save_data(path)
-	save_dialog.hide()
-
 func _on_load_pressed() -> void:
+	load_dialog.root_subfolder = "res://game/dialogs"
 	load_dialog.show()
 
 func _on_load_dialog_file_selected(path: String) -> void:
@@ -106,6 +101,8 @@ func load_data(file_path: String):
 		var graph_data = ResourceLoader.load(file_path)
 		if graph_data is GraphData:
 			init_graph(graph_data)
+			file_name_label.text = graph_data.resource_name
+			prints("grph name:", file_name_label.text)
 		else:
 			# Error loading data
 			push_error("couldnt load data from %s", file_path)
