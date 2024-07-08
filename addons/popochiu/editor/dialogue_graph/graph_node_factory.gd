@@ -5,10 +5,11 @@ const START_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/st
 const DIALOGUE_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/dialogue_node.tscn")
 
 static func create_node(node: NodeData) -> PopoGraphNode:
-	if node is StartNodeData:
-		return START_NODE.instantiate()
-	elif node is DialogueNodeData:
-		return DIALOGUE_NODE.instantiate()
-	else:
-		push_error("GraphNodeFactory: no such graph node type as " + type_string(typeof(node)))
-		return null
+	match node:
+		StartNodeData:
+			return START_NODE.instantiate()
+		DialogueNodeData:
+			return DIALOGUE_NODE.instantiate()
+		_:
+			push_error("GraphNodeFactory: no such graph node type as " + type_string(typeof(node)))
+			return null

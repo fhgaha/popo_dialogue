@@ -15,20 +15,6 @@ extends Resource
 ## to make the dialog to work properly[/b].
 ## [i]Virtual[/i].
 func _on_start() -> void:
-	#********dialogue graph********
-	var graph_path: String = resource_path.get_slice('.', 0) + "_graph.res"
-	graph = load(graph_path)
-	var data: GraphData.ToPopochiuDialogue = graph.handle()
-	for cb: Callable in data.callables:
-		await cb.call()
-	if data.options.size() == 0:
-		options.clear()
-	var opts: Array[PopochiuDialogOption] = []
-	for op: String in data.options:
-		var popo_opt:PopochiuDialogOption = create_opt(op, op)
-		opts.append(popo_opt)
-	update_options(opts)
-	#********dialogue graph********
 	pass
 
 
@@ -36,18 +22,6 @@ func _on_start() -> void:
 ## [param opt] can be used to check which was the selected option.
 ## [i]Virtual[/i].
 func _option_selected(opt: PopochiuDialogOption) -> void:
-	#********dialogue graph********
-	var data: GraphData.ToPopochiuDialogue = graph.handle(opt.text)
-	for cb: Callable in data.callables:
-		await cb.call()
-	var opts: Array[PopochiuDialogOption] = []
-	for op: String in data.options:
-		var popo_opt:PopochiuDialogOption = create_opt(op, op)
-		opts.append(popo_opt)
-	update_options(opts)
-	
-	_show_options()
-	#********dialogue graph********
 	pass
 
 
@@ -194,18 +168,3 @@ func _on_option_selected(opt: PopochiuDialogOption) -> void:
 
 
 #endregion
-
-
-#********dialogue graph********
-var graph: GraphData
-
-func update_options(array: Array[PopochiuDialogOption]) -> void:
-	options.clear()
-	options.append_array(array)
-
-func create_opt(id: String, text: String, visible: bool = true) -> PopochiuDialogOption:
-	var opt = PopochiuDialogOption.new()
-	opt.id = id
-	opt.text = text
-	opt.visible = visible
-	return opt

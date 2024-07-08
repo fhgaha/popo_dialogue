@@ -39,15 +39,7 @@ func create(obj_name: String) -> int:
 	# Save resource (dialogs are not scenes)
 	result_code = _save_obj_resource(new_obj)
 	if result_code != ResultCodes.SUCCESS: return result_code
-	
-	#************dialogue graph************
-	var path = _path_resource.get_slice('.', 0) + "_graph.res"
-	if ResourceSaver.save(GraphData.new(), path) == OK:
-		print("PopochiuDialogFactory: graph saved")
-	else:
-		print("PopochiuDialogFactory: Error saving graph_data")
-	#************dialogue graph************
-	
+
 	# Add the object to Popochiu dock list, plus open it in the editor
 	_add_resource_to_popochiu()
 	

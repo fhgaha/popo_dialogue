@@ -9,7 +9,7 @@ const DIALOGUE_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes
 @onready var save_dialog: FileDialog = $SaveDialog
 @onready var load_dialog: FileDialog = $LoadDialog
 
-var res_path : String
+var resource_path : String
 
 func _ready() -> void:
 	add_node_menu.hide()
@@ -71,22 +71,21 @@ func _on_graph_edit_disconnection_request(
 	graph_edit.disconnect_node(from_node, from_port, to_node, to_port)
 
 func _on_save_pressed() -> void:
-	assert(!res_path.is_empty(), "DialogueGraph: resource_path is empty")
-	if !ResourceLoader.exists(res_path):
-		save_data(res_path)
+	assert(!resource_path.is_empty(), "DialogueGraph: resource_path is empty")
+	if !ResourceLoader.exists(resource_path):
+		save_data(resource_path)
 	else:
 		save_dialog.show()
 
 func save_data(save_path: String) -> void:
 	var graph_data := GraphData.new()
-	graph_data.take_over_path(save_path)
 	graph_data.connections = graph_edit.get_connection_list()
 	for node in graph_edit.get_children():
 		if node is PopoGraphNode:
 			var node_data = node.as_node_data()
 			graph_data.nodes.append(node_data)
 	if ResourceSaver.save(graph_data, save_path) == OK:
-		print("Graph saved")
+		print("saved")
 	else:
 		print("Error saving graph_data")
 
@@ -101,9 +100,10 @@ func _on_load_dialog_file_selected(path: String) -> void:
 	load_data(path)
 
 func load_data(file_path: String):
-	res_path = file_path
 	if ResourceLoader.exists(file_path):
+		resource_path = file_path
 		var graph_data = ResourceLoader.load(file_path)
+		#print("loading node datas: ", file_path, ", ", graph_data.nodes)
 		if graph_data is GraphData:
 			init_graph(graph_data)
 		else:
