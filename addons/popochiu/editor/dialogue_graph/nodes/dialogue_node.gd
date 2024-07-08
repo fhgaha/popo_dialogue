@@ -97,12 +97,13 @@ func _on_speaker_pressed() -> void:
 func _on_speaker_item_selected(index: int) -> void:
 	pass
 
-func load_data(node: NodeData):
-	speaker = node.data["speaker"]
-	text    = node.data["text"]   
-	load_options(node.data["options"])
+func load_data(node: NodeData) -> void:
+	node = node as DialogueNodeData
+	speaker = node.speaker_name
+	text    = node.text   
+	load_options(node.options)
 
-func load_options(options_names: Array):
+func load_options(options_names: Array[String]):
 	clear_options()
 	for opt_text: String in options_names:
 		var opt = OPTION_SCENE.instantiate()
@@ -117,7 +118,7 @@ func clear_options():
 		opt.free()
 	options.clear()
 
-func as_node_data() -> NodeData:
+func as_node_data() -> DialogueNodeData:
 	var data := DialogueNodeData.new()
 	data.name         = name
 	data.offset       = position_offset

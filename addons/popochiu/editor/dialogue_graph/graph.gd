@@ -76,7 +76,6 @@ func _on_save_pressed() -> void:
 func save_data(save_path: String) -> void:
 	var graph_data := GraphData.new()
 	graph_data.resource_name = save_path.split('/', false)[-1]
-	prints("set grph name:", graph_data.resource_name)
 	graph_data.take_over_path(save_path)
 	graph_data.connections = graph_edit.get_connection_list()
 	for node in graph_edit.get_children():
@@ -84,7 +83,8 @@ func save_data(save_path: String) -> void:
 			var node_data = node.as_node_data()
 			graph_data.nodes.append(node_data)
 	if ResourceSaver.save(graph_data, save_path) == OK:
-		print("Graph saved")
+		#print("Graph saved")
+		pass
 	else:
 		print("Error saving graph_data")
 
@@ -102,7 +102,6 @@ func load_data(file_path: String):
 		if graph_data is GraphData:
 			init_graph(graph_data)
 			file_name_label.text = graph_data.resource_name
-			prints("grph name:", file_name_label.text)
 		else:
 			# Error loading data
 			push_error("couldnt load data from %s", file_path)
@@ -112,20 +111,15 @@ func load_data(file_path: String):
 
 func init_graph(graph_data: GraphData):
 	await clear_graph()
-	
-	for node: NodeData in graph_data.nodes:
+
+	for data: NodeData in graph_data.nodes:
 		# Get new node from factory autoload (singleton)
-		var gnode: PopoGraphNode = GraphNodeFactory.create_node(node)
-		gnode.position_offset = node.offset
-		gnode.name = node.name
-		match node:
-			StartNode:
-				pass
-			DialogueNode:
-				gnode.load_data(node)
-		
-		graph_edit.add_child(gnode)
-	
+		var node: PopoGraphNode = GraphNodeFactory.create_node(data)
+		node.position_offset = data.offset
+		node.name = data.name
+		node.load_data(data)
+		graph_edit.add_child(node)
+
 	for con in graph_data.connections:
 		var _e = graph_edit.connect_node(
 			con.from_node, con.from_port, con.to_node, con.to_port)
