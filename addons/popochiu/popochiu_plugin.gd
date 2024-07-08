@@ -214,5 +214,6 @@ func _handles(object):
 
 func _edit(object):
 	if object is GraphData and is_instance_valid(dialogue_graph):
+		dialogue_graph.res_path = object.resource_path
 		dialogue_graph.load_data(object.resource_path)
 		make_bottom_panel_item_visible(dialogue_graph)
