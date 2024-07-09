@@ -55,7 +55,6 @@ func add_dialogue_node():
 	var dlg_nodes_count:int = graph_edit.get_children().filter(
 		func(c): return c is DialogueNode).size()
 	dlg_node.name = "DialogueNode" + str(dlg_nodes_count + 1)
-	print(graph_edit.get_children())
 	dlg_node.title = dlg_node.name
 	graph_edit.add_child(dlg_node)
 	set_node_pos_to_mouse_pos(dlg_node)
@@ -96,7 +95,6 @@ func save_data(save_path: String) -> void:
 		pass
 	else:
 		print("Error saving graph_data")
-	prints("cons svd:", graph_data.connections)
 
 func _on_load_pressed() -> void:
 	load_dialog.root_subfolder = "res://game/dialogs"
@@ -129,12 +127,9 @@ func init_graph(graph_data: GraphData):
 		graph_edit.add_child(node)
 		if !node.is_node_ready(): await node.ready
 	
-	prints("chldrn:", graph_edit.get_children())
 	for con: Dictionary in graph_data.connections:
 		var _err = graph_edit.connect_node(
 			con.from_node, con.from_port, con.to_node, con.to_port)
-	prints("data cons:", graph_data.connections)
-	prints("graph:", graph_edit.get_connection_list())
 
 func clear_graph():
 	graph_edit.clear_connections()

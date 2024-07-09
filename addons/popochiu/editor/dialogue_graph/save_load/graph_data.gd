@@ -16,6 +16,7 @@ func handle(option: String = "", data: ToPopochiuDialogue = null) -> ToPopochiuD
 		func(cn): return cn["from_node"] == cur_node.name)
 	if from_node_cons.size() == 0:
 		#reached end
+		cur_node = null
 		data.callables.append(func(): await D.finish_dialog())
 		return data
 	
@@ -65,7 +66,7 @@ func next(node: NodeData, option: String = "") -> NodeData:
 		_:
 			assert(!option.is_empty(), "Option should not be emtpy at this point")
 			
-			var idx: int = cur_node.data["options"].find(option)
+			var idx: int = cur_node.options.find(option)
 			if idx == -1:
 				push_error("node %s has no option %s" % cur_node, option)
 			

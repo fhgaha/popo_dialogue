@@ -11,7 +11,10 @@ func _on_start() -> void:
 #	await C.player.say("Hi")
 #	await C.Popsy.say("Oh! Hi...")
 	# (!) It MUST always use an await
-	await E.get_tree().process_frame
+	if false:
+		await E.get_tree().process_frame
+	else:
+		super()
 
 
 func _option_selected(opt: PopochiuDialogOption) -> void:
@@ -20,13 +23,16 @@ func _option_selected(opt: PopochiuDialogOption) -> void:
 	
 	# Use match to check which option was selected and excecute something for
 	# each one
-	match opt.id:
-		_:
-			# By default close the dialog. Options won't show after calling
-			# stop()
-			stop()
-	
-	_show_options()
+	if false:
+		match opt.id:
+			_:
+				# By default close the dialog. Options won't show after calling
+				# stop()
+				stop()
+		
+		_show_options()
+	else:
+		super(opt)
 
 
 # Use this to save custom data for this PopochiuDialog when saving the game.

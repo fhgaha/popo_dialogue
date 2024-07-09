@@ -28,6 +28,7 @@ func _on_start() -> void:
 		var popo_opt:PopochiuDialogOption = create_opt(op, op)
 		opts.append(popo_opt)
 	update_options(opts)
+	_show_options()
 	#********dialogue graph********
 	pass
 
@@ -41,7 +42,7 @@ func _option_selected(opt: PopochiuDialogOption) -> void:
 	for cb: Callable in data.callables:
 		await cb.call()
 	var opts: Array[PopochiuDialogOption] = []
-	for op: String in data.options:
+	for op: String in data.options.filter(func(opt: String): return !opt.is_empty()):
 		var popo_opt:PopochiuDialogOption = create_opt(op, op)
 		opts.append(popo_opt)
 	update_options(opts)
@@ -205,7 +206,7 @@ func update_options(array: Array[PopochiuDialogOption]) -> void:
 
 func create_opt(id: String, text: String, visible: bool = true) -> PopochiuDialogOption:
 	var opt = PopochiuDialogOption.new()
-	opt.id = id
-	opt.text = text
+	opt.id      = id
+	opt.text    = text
 	opt.visible = visible
 	return opt
