@@ -21,7 +21,7 @@ func handle(option: String = "", data: ToPopochiuDialogue = null) -> ToPopochiuD
 	
 	cur_node = next(cur_node, option)
 	
-	#type matching not implemented >.<
+	#type matching not implemented
 	if   cur_node is StartNodeData:
 		pass
 	elif cur_node is DialogueNodeData:

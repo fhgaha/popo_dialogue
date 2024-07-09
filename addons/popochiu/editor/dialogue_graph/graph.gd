@@ -44,11 +44,19 @@ func _on_add_node_menu_id_pressed(id: int) -> void:
 
 func add_start_node():
 	var start_node = START_NODE.instantiate()
+	start_node.name = "StartNode"
 	graph_edit.add_child(start_node)
 	set_node_pos_to_mouse_pos(start_node)
 
 func add_dialogue_node():
+	#should manually set name of dialogue node otherwise graph edit messes up its connections, 
+	#thinks node1 is node3 and etc. for some reason
 	var dlg_node = DIALOGUE_NODE.instantiate()
+	var dlg_nodes_count:int = graph_edit.get_children().filter(
+		func(c): return c is DialogueNode).size()
+	dlg_node.name = "DialogueNode" + str(dlg_nodes_count + 1)
+	print(graph_edit.get_children())
+	dlg_node.title = dlg_node.name
 	graph_edit.add_child(dlg_node)
 	set_node_pos_to_mouse_pos(dlg_node)
 
@@ -58,10 +66,10 @@ func set_node_pos_to_mouse_pos(node: GraphNode):
 func _on_graph_edit_connection_request(
 	from_node: StringName, from_port: int, to_node: StringName, to_port: int
 	) -> void:
-	if graph_edit.get_node(str(from_node)) is StartNode:
-		for con: Dictionary in graph_edit.get_connection_list():
-			if con.to == to_node and con.to_port == to_port:
-				return
+	#if graph_edit.get_node(str(from_node)) is StartNode:
+		#for con: Dictionary in graph_edit.get_connection_list():
+			#if con.to_node == to_node and con.to_port == to_port:
+				#return
 	graph_edit.connect_node(from_node, from_port, to_node, to_port)
 
 func _on_graph_edit_disconnection_request(
@@ -77,6 +85,7 @@ func save_data(save_path: String) -> void:
 	var graph_data := GraphData.new()
 	graph_data.resource_name = save_path.split('/', false)[-1]
 	graph_data.take_over_path(save_path)
+	
 	graph_data.connections = graph_edit.get_connection_list()
 	for node in graph_edit.get_children():
 		if node is PopoGraphNode:
@@ -87,6 +96,7 @@ func save_data(save_path: String) -> void:
 		pass
 	else:
 		print("Error saving graph_data")
+	prints("cons svd:", graph_data.connections)
 
 func _on_load_pressed() -> void:
 	load_dialog.root_subfolder = "res://game/dialogs"
@@ -111,18 +121,20 @@ func load_data(file_path: String):
 
 func init_graph(graph_data: GraphData):
 	await clear_graph()
-
+	
 	for data: NodeData in graph_data.nodes:
 		# Get new node from factory autoload (singleton)
 		var node: PopoGraphNode = GraphNodeFactory.create_node(data)
-		node.position_offset = data.offset
-		node.name = data.name
 		node.load_data(data)
 		graph_edit.add_child(node)
-
-	for con in graph_data.connections:
-		var _e = graph_edit.connect_node(
+		if !node.is_node_ready(): await node.ready
+	
+	prints("chldrn:", graph_edit.get_children())
+	for con: Dictionary in graph_data.connections:
+		var _err = graph_edit.connect_node(
 			con.from_node, con.from_port, con.to_node, con.to_port)
+	prints("data cons:", graph_data.connections)
+	prints("graph:", graph_edit.get_connection_list())
 
 func clear_graph():
 	graph_edit.clear_connections()

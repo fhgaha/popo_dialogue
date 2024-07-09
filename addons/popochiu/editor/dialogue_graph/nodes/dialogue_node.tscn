@@ -22,7 +22,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 4
 resizable = true
-title = "Dialogue"
+title = "DialogueNode"
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
@@ -43,38 +43,38 @@ slot/1/right_icon = null
 slot/1/draw_stylebox = true
 script = ExtResource("1_bfopg")
 
-[node name="Slot-1" type="VBoxContainer" parent="."]
+[node name="Slot_1" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SpeakerLabel" type="Label" parent="Slot-1"]
+[node name="SpeakerLabel" type="Label" parent="Slot_1"]
 layout_mode = 2
 text = "Speaker"
 
-[node name="SpeakerContainer" type="HBoxContainer" parent="Slot-1"]
+[node name="SpeakerContainer" type="HBoxContainer" parent="Slot_1"]
 layout_mode = 2
 
-[node name="Speaker" type="OptionButton" parent="Slot-1/SpeakerContainer"]
+[node name="Speaker" type="OptionButton" parent="Slot_1/SpeakerContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 fit_to_longest_item = false
 
-[node name="TextureRect" type="TextureRect" parent="Slot-1/SpeakerContainer"]
+[node name="TextureRect" type="TextureRect" parent="Slot_1/SpeakerContainer"]
 clip_contents = true
 layout_mode = 2
 texture = ExtResource("2_b25ff")
 expand_mode = 3
 stretch_mode = 3
 
-[node name="DialogueLabel" type="Label" parent="Slot-1"]
+[node name="DialogueLabel" type="Label" parent="Slot_1"]
 layout_mode = 2
 text = "Dialogue"
 
-[node name="DialogueContainer" type="HBoxContainer" parent="Slot-1"]
+[node name="DialogueContainer" type="HBoxContainer" parent="Slot_1"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Dialogue" type="TextEdit" parent="Slot-1/DialogueContainer"]
+[node name="Dialogue" type="TextEdit" parent="Slot_1/DialogueContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -83,28 +83,28 @@ wrap_mode = 1
 syntax_highlighter = SubResource("CodeHighlighter_btpy8")
 highlight_all_occurrences = true
 
-[node name="ExpandButton" type="Button" parent="Slot-1/DialogueContainer"]
+[node name="ExpandButton" type="Button" parent="Slot_1/DialogueContainer"]
 visible = false
 layout_mode = 2
 icon = ExtResource("3_yb0po")
 
-[node name="DialoguePanel" type="PopupPanel" parent="Slot-1/DialogueContainer"]
+[node name="DialoguePanel" type="PopupPanel" parent="Slot_1/DialogueContainer"]
 unique_name_in_owner = true
 initial_position = 1
 size = Vector2i(800, 600)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Slot-1/DialogueContainer/DialoguePanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Slot_1/DialogueContainer/DialoguePanel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 796.0
-offset_bottom = 596.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DialogueExpanded" type="TextEdit" parent="Slot-1/DialogueContainer/DialoguePanel/VBoxContainer"]
+[node name="DialogueExpanded" type="TextEdit" parent="Slot_1/DialogueContainer/DialoguePanel/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 91)
 layout_mode = 2
@@ -114,18 +114,18 @@ wrap_mode = 1
 syntax_highlighter = SubResource("CodeHighlighter_btpy8")
 highlight_all_occurrences = true
 
-[node name="CenterContainer" type="CenterContainer" parent="Slot-1/DialogueContainer/DialoguePanel/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Slot_1/DialogueContainer/DialoguePanel/VBoxContainer"]
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="Slot-1/DialogueContainer/DialoguePanel/VBoxContainer/CenterContainer"]
+[node name="CloseButton" type="Button" parent="Slot_1/DialogueContainer/DialoguePanel/VBoxContainer/CenterContainer"]
 layout_mode = 2
 text = "Close"
 
-[node name="ResizeTimer" type="Timer" parent="Slot-1/DialogueContainer"]
+[node name="ResizeTimer" type="Timer" parent="Slot_1/DialogueContainer"]
 wait_time = 0.5
 one_shot = true
 
-[node name="DialogueTimer" type="Timer" parent="Slot-1/DialogueContainer"]
+[node name="DialogueTimer" type="Timer" parent="Slot_1/DialogueContainer"]
 wait_time = 0.5
 one_shot = true
 
@@ -133,5 +133,5 @@ one_shot = true
 layout_mode = 2
 size_flags_vertical = 8
 
-[connection signal="item_selected" from="Slot-1/SpeakerContainer/Speaker" to="." method="_on_speaker_item_selected"]
-[connection signal="pressed" from="Slot-1/SpeakerContainer/Speaker" to="." method="_on_speaker_pressed"]
+[connection signal="item_selected" from="Slot_1/SpeakerContainer/Speaker" to="." method="_on_speaker_item_selected"]
+[connection signal="pressed" from="Slot_1/SpeakerContainer/Speaker" to="." method="_on_speaker_pressed"]

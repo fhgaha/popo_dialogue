@@ -3,7 +3,7 @@ class_name DialogueNode extends PopoGraphNode
 
 const OPTION_SCENE = preload("res://addons/popochiu/editor/dialogue_graph/dialogue_option.tscn")
 
-@onready var speaker_node: OptionButton = $"Slot-1/SpeakerContainer/Speaker"
+@onready var speaker_node: OptionButton = $"Slot_1/SpeakerContainer/Speaker"
 @onready var dialogue: TextEdit = %Dialogue
 
 var speaker: String:
@@ -27,8 +27,6 @@ var options: Array[DialogueOption]:
 var base_color: Color = Color.WHITE
 
 func _ready() -> void:
-	name = "DialogueNode"
-	
 	for opt: DialogueOption in options:
 		if !opt.text_changed.is_connected(_on_option_text_changed):
 			opt.text_changed.connect(_on_option_text_changed)
@@ -97,11 +95,14 @@ func _on_speaker_pressed() -> void:
 func _on_speaker_item_selected(index: int) -> void:
 	pass
 
-func load_data(node: NodeData) -> void:
-	node = node as DialogueNodeData
-	speaker = node.speaker_name
-	text    = node.text   
-	load_options(node.options)
+func load_data(data: NodeData) -> void:
+	data = data as DialogueNodeData
+	position_offset = data.offset
+	name            = data.name
+	title           = data.name
+	speaker         = data.speaker_name
+	text            = data.text   
+	load_options(data.options)
 
 func load_options(options_names: Array[String]):
 	clear_options()
@@ -121,6 +122,7 @@ func clear_options():
 func as_node_data() -> DialogueNodeData:
 	var data := DialogueNodeData.new()
 	data.name         = name
+	#prints(self, name)
 	data.offset       = position_offset
 	data.speaker_name = speaker
 	data.text         = text

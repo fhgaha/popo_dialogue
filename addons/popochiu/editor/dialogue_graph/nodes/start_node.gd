@@ -2,7 +2,7 @@
 class_name StartNode extends PopoGraphNode
 
 func _ready() -> void:
-	name = "StartNode"
+	pass
 
 func as_node_data() -> StartNodeData:
 	var data := StartNodeData.new()
@@ -10,5 +10,7 @@ func as_node_data() -> StartNodeData:
 	data.offset = position_offset
 	return data
 
-func load_data(node: NodeData) -> void:
-	pass
+func load_data(data: NodeData) -> void:
+	position_offset = data.offset
+	name            = data.name
+	title           = data.name
