@@ -1,50 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://enuw1u0fvtds"]
+[gd_scene load_steps=3 format=3 uid="uid://enuw1u0fvtds"]
 
 [ext_resource type="Script" path="res://addons/popochiu/editor/dialogue_graph/graph.gd" id="1_rtjv4"]
+[ext_resource type="Script" path="res://addons/popochiu/editor/dialogue_graph/variables_panel/variables_panel.gd" id="2_8yif6"]
 
-[node name="Graph" type="VBoxContainer"]
-offset_right = 480.0
-offset_bottom = 270.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="Graph" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_rtjv4")
 
-[node name="TopPanel" type="HBoxContainer" parent="."]
+[node name="FilesAndGraphPanel" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopPanel" type="HBoxContainer" parent="FilesAndGraphPanel"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Group1" type="HBoxContainer" parent="TopPanel"]
+[node name="Group1" type="HBoxContainer" parent="FilesAndGraphPanel/TopPanel"]
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Add" type="Button" parent="TopPanel/Group1"]
+[node name="Add" type="Button" parent="FilesAndGraphPanel/TopPanel/Group1"]
 layout_mode = 2
 text = "Add"
 
-[node name="Save" type="Button" parent="TopPanel/Group1"]
+[node name="Save" type="Button" parent="FilesAndGraphPanel/TopPanel/Group1"]
 layout_mode = 2
 text = "Save"
 
-[node name="Load" type="Button" parent="TopPanel/Group1"]
+[node name="Load" type="Button" parent="FilesAndGraphPanel/TopPanel/Group1"]
 layout_mode = 2
 text = "Load"
 
-[node name="Spacer" type="Control" parent="TopPanel"]
+[node name="Spacer" type="Control" parent="FilesAndGraphPanel/TopPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Group2" type="HBoxContainer" parent="TopPanel"]
+[node name="Group2" type="HBoxContainer" parent="FilesAndGraphPanel/TopPanel"]
 layout_direction = 3
 layout_mode = 2
 size_flags_horizontal = 8
 alignment = 2
 
-[node name="FileName" type="Label" parent="TopPanel/Group2"]
+[node name="FileName" type="Label" parent="FilesAndGraphPanel/TopPanel/Group2"]
 layout_mode = 2
 text = " "
 
-[node name="GraphEdit" type="GraphEdit" parent="."]
+[node name="GraphEdit" type="GraphEdit" parent="FilesAndGraphPanel"]
 layout_mode = 2
 size_flags_vertical = 3
 snapping_enabled = false
@@ -53,7 +66,7 @@ right_disconnects = true
 connection_lines_thickness = 6.0
 show_zoom_label = true
 
-[node name="AddNodeMenu" type="PopupMenu" parent="GraphEdit"]
+[node name="AddNodeMenu" type="PopupMenu" parent="FilesAndGraphPanel/GraphEdit"]
 size = Vector2i(100, 62)
 item_count = 2
 item_0/text = "Start"
@@ -61,7 +74,7 @@ item_0/id = 0
 item_1/text = "Dialogue"
 item_1/id = 1
 
-[node name="LoadDialog" type="FileDialog" parent="."]
+[node name="LoadDialog" type="FileDialog" parent="FilesAndGraphPanel"]
 title = "Open a File"
 position = Vector2i(235, 36)
 size = Vector2i(400, 410)
@@ -71,12 +84,39 @@ file_mode = 0
 root_subfolder = "res://game/dialogs"
 filters = PackedStringArray("*.res")
 
-[connection signal="pressed" from="TopPanel/Group1/Add" to="." method="_on_add_pressed"]
-[connection signal="pressed" from="TopPanel/Group1/Save" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="TopPanel/Group1/Load" to="." method="_on_load_pressed"]
-[connection signal="connection_request" from="GraphEdit" to="." method="_on_graph_edit_connection_request"]
-[connection signal="delete_nodes_request" from="GraphEdit" to="." method="_on_graph_edit_delete_nodes_request"]
-[connection signal="disconnection_request" from="GraphEdit" to="." method="_on_graph_edit_disconnection_request"]
-[connection signal="popup_request" from="GraphEdit" to="." method="_on_graph_edit_popup_request"]
-[connection signal="id_pressed" from="GraphEdit/AddNodeMenu" to="." method="_on_add_node_menu_id_pressed"]
-[connection signal="file_selected" from="LoadDialog" to="." method="_on_load_dialog_file_selected"]
+[node name="VariablesPanel" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 89.0
+offset_right = 178.0
+offset_bottom = 436.0
+script = ExtResource("2_8yif6")
+
+[node name="Label" type="Label" parent="VariablesPanel"]
+layout_mode = 2
+text = "Variables"
+
+[node name="Add" type="Button" parent="VariablesPanel"]
+layout_mode = 2
+text = "+"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VariablesPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VariablesPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+
+[connection signal="pressed" from="FilesAndGraphPanel/TopPanel/Group1/Add" to="FilesAndGraphPanel" method="_on_add_pressed"]
+[connection signal="pressed" from="FilesAndGraphPanel/TopPanel/Group1/Save" to="FilesAndGraphPanel" method="_on_save_pressed"]
+[connection signal="pressed" from="FilesAndGraphPanel/TopPanel/Group1/Load" to="FilesAndGraphPanel" method="_on_load_pressed"]
+[connection signal="connection_request" from="FilesAndGraphPanel/GraphEdit" to="FilesAndGraphPanel" method="_on_graph_edit_connection_request"]
+[connection signal="delete_nodes_request" from="FilesAndGraphPanel/GraphEdit" to="FilesAndGraphPanel" method="_on_graph_edit_delete_nodes_request"]
+[connection signal="disconnection_request" from="FilesAndGraphPanel/GraphEdit" to="FilesAndGraphPanel" method="_on_graph_edit_disconnection_request"]
+[connection signal="popup_request" from="FilesAndGraphPanel/GraphEdit" to="FilesAndGraphPanel" method="_on_graph_edit_popup_request"]
+[connection signal="id_pressed" from="FilesAndGraphPanel/GraphEdit/AddNodeMenu" to="FilesAndGraphPanel" method="_on_add_node_menu_id_pressed"]
+[connection signal="file_selected" from="FilesAndGraphPanel/LoadDialog" to="FilesAndGraphPanel" method="_on_load_dialog_file_selected"]
+[connection signal="pressed" from="VariablesPanel/Add" to="VariablesPanel" method="_on_add_pressed"]
