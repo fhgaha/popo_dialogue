@@ -12,9 +12,9 @@ var cur_node: NodeData
 func handle(option: String = "", data: ToPopochiuDialogue = null) -> ToPopochiuDialogue:
 	if !data: data = ToPopochiuDialogue.new()
 	if !cur_node: cur_node = get_start_node()
-	var from_node_cons: Array = connections.filter(
+	var from_node_conections: Array = connections.filter(
 		func(cn): return cn["from_node"] == cur_node.name)
-	if from_node_cons.size() == 0:
+	if from_node_conections.size() == 0:
 		#reached end
 		cur_node = null
 		data.callables.append(func(): await D.finish_dialog())

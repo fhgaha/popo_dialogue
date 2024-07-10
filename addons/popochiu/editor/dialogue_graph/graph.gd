@@ -11,10 +11,17 @@ const DIALOGUE_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes
 
 var res_path : String
 
+var editor_settings : EditorSettings
+var base_color : Color
+
 func _ready() -> void:
 	add_node_menu.hide()
 	var char_names:PackedStringArray = DirAccess.get_directories_at(
 		"res://game/characters/")
+	
+	if !Engine.is_editor_hint(): return
+	editor_settings = EditorInterface.get_editor_settings()
+	editor_settings.settings_changed.connect(update_slots_color)
 
 func _on_add_pressed() -> void:
 	var start_node = START_NODE.instantiate()
@@ -116,6 +123,8 @@ func load_data(file_path: String):
 	else:
 		# File not found
 		push_error("couldnt find file at %s", file_path)
+	
+	update_slots_color()
 
 func init_graph(graph_data: GraphData):
 	await clear_graph()
@@ -138,3 +147,26 @@ func clear_graph():
 		if node is GraphNode:
 			node.queue_free()
 			await node.tree_exited
+
+func update_slots_color(nodes : Array = graph_edit.get_children()):
+	if not editor_settings: return
+	
+	const light_color := Color.WHITE
+	const dark_color := Color.BLACK
+	base_color = editor_settings.get_setting('interface/theme/base_color')
+	base_color = light_color if base_color.v < 0.5 else dark_color
+	
+	for node in nodes:
+		if not node is GraphNode: continue
+		
+		for i in range(node.get_child_count()):
+			node = node as GraphNode
+			var enabled_left : bool = node.is_slot_enabled_left(i)
+			var enabled_right : bool = node.is_slot_enabled_right(i)
+			var color_left : Color = node.get_slot_color_left(i)
+			if color_left.is_equal_approx(light_color) or color_left.is_equal_approx(dark_color): color_left = base_color
+			var color_right : Color = node.get_slot_color_right(i)
+			if color_right.is_equal_approx(light_color) or color_right.is_equal_approx(dark_color): color_right = base_color
+			node.set_slot(i, enabled_left, 0, color_left, enabled_right, 0, color_right)
+		
+		if 'base_color' in node: node.base_color = base_color
