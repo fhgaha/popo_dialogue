@@ -4,10 +4,10 @@ class_name DialogueGraph extends Control
 const START_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/start_node.tscn")
 const DIALOGUE_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/dialogue_node.tscn")
 
-@onready var graph_edit: GraphEdit = $FilesAndGraphPanel/GraphEdit
-@onready var add_node_menu: PopupMenu = $FilesAndGraphPanel/GraphEdit/AddNodeMenu
-@onready var load_dialog: FileDialog = $FilesAndGraphPanel/LoadDialog
-@onready var file_name_label: Label = $FilesAndGraphPanel/TopPanel/Group2/FileName
+@onready var graph_edit: GraphEdit = $HSplitContainer/GraphPanel/GraphEdit
+@onready var add_node_menu: PopupMenu = $HSplitContainer/GraphPanel/GraphEdit/AddNodeMenu
+@onready var load_dialog: FileDialog = $HSplitContainer/GraphPanel/LoadDialog
+@onready var file_name_label: Label = $HSplitContainer/Data/FileName
 
 var res_path : String
 
