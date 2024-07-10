@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://bk2j4yql8caff"]
+
+[ext_resource type="Script" path="res://addons/popochiu/editor/dialogue_graph/variables_panel/variable_item.gd" id="1_777pj"]
+[ext_resource type="Texture2D" uid="uid://bhephob6k0otq" path="res://addons/popochiu/editor/dialogue_graph/icons/String.svg" id="1_psa0y"]
+[ext_resource type="Texture2D" uid="uid://bjrwwmie7thwg" path="res://addons/popochiu/editor/dialogue_graph/icons/int.svg" id="2_gp2qf"]
+[ext_resource type="Texture2D" uid="uid://dhbqigfukbvef" path="res://addons/popochiu/editor/dialogue_graph/icons/float.svg" id="3_vfjif"]
+[ext_resource type="Texture2D" uid="uid://bb081f65mx3ku" path="res://addons/popochiu/editor/dialogue_graph/icons/bool.svg" id="4_nntfk"]
+[ext_resource type="Texture2D" uid="uid://bwxv3s2dl4oct" path="res://addons/popochiu/editor/dialogue_graph/icons/Remove.svg" id="5_t5gib"]
+
+[node name="Variable0" type="HBoxContainer"]
+anchors_preset = -1
+anchor_bottom = 0.152
+offset_right = 183.0
+offset_bottom = -0.0400009
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+script = ExtResource("1_777pj")
+
+[node name="Name" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(90, 30)
+layout_mode = 2
+placeholder_text = "Variable Name"
+
+[node name="Type" type="OptionButton" parent="."]
+layout_mode = 2
+item_count = 4
+selected = 0
+popup/item_0/text = ""
+popup/item_0/icon = ExtResource("1_psa0y")
+popup/item_0/id = 4
+popup/item_1/text = ""
+popup/item_1/icon = ExtResource("2_gp2qf")
+popup/item_1/id = 2
+popup/item_2/text = ""
+popup/item_2/icon = ExtResource("3_vfjif")
+popup/item_2/id = 3
+popup/item_3/text = ""
+popup/item_3/icon = ExtResource("4_nntfk")
+popup/item_3/id = 1
+
+[node name="StringValue" type="LineEdit" parent="."]
+layout_mode = 2
+placeholder_text = "Value"
+
+[node name="IntValue" type="SpinBox" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="FloatValue" type="SpinBox" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="BoolValue" type="CheckBox" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="DeleteButton" type="Button" parent="."]
+layout_mode = 2
+icon = ExtResource("5_t5gib")
+
+[connection signal="text_changed" from="Name" to="." method="_on_name_changed"]
+[connection signal="item_selected" from="Type" to="." method="_on_type_changed"]
+[connection signal="text_changed" from="StringValue" to="." method="_on_value_changed"]
+[connection signal="value_changed" from="IntValue" to="." method="_on_value_changed"]
+[connection signal="value_changed" from="FloatValue" to="." method="_on_value_changed"]
+[connection signal="toggled" from="BoolValue" to="." method="_on_value_changed"]
