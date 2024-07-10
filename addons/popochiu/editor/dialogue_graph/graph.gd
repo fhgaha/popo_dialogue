@@ -54,6 +54,7 @@ func add_start_node():
 	start_node.name = "StartNode"
 	graph_edit.add_child(start_node)
 	set_node_pos_to_mouse_pos(start_node)
+	update_slots_color([start_node])
 
 func add_dialogue_node():
 	#should manually set name of dialogue node otherwise graph edit messes up its connections, 
@@ -65,6 +66,7 @@ func add_dialogue_node():
 	dlg_node.title = dlg_node.name
 	graph_edit.add_child(dlg_node)
 	set_node_pos_to_mouse_pos(dlg_node)
+	update_slots_color([dlg_node])
 
 func set_node_pos_to_mouse_pos(node: GraphNode):
 	node.set_position_offset((graph_edit.get_local_mouse_position() + graph_edit.scroll_offset) / graph_edit.zoom)
