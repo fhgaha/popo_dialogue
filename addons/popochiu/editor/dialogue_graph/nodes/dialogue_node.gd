@@ -96,6 +96,8 @@ func _on_speaker_item_selected(index: int) -> void:
 	pass
 
 func load_data(data: NodeData) -> void:
+	if !is_node_ready(): await ready
+	
 	data = data as DialogueNodeData
 	position_offset = data.offset
 	name            = data.name
@@ -122,7 +124,6 @@ func clear_options():
 func as_node_data() -> DialogueNodeData:
 	var data := DialogueNodeData.new()
 	data.name         = name
-	#prints(self, name)
 	data.offset       = position_offset
 	data.speaker_name = speaker
 	data.text         = text

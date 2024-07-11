@@ -3,6 +3,7 @@ class_name DialogueGraph extends Control
 
 const START_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/start_node.tscn")
 const DIALOGUE_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/dialogue_node.tscn")
+const CONDITION_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/condition_node.tscn")
 
 @onready var graph_edit: GraphEdit = $HSplitContainer/GraphPanel/GraphEdit
 @onready var add_node_menu: PopupMenu = $HSplitContainer/GraphPanel/GraphEdit/AddNodeMenu
@@ -50,36 +51,43 @@ func _on_add_node_menu_id_pressed(id: int) -> void:
 	match id:
 		0: add_start_node()
 		1: add_dialogue_node()
+		2: add_condition_node()
 
-func add_start_node():
+func add_start_node() -> void:
 	var start_node = START_NODE.instantiate()
 	start_node.name = "StartNode"
 	graph_edit.add_child(start_node)
 	set_node_pos_to_mouse_pos(start_node)
 	update_slots_color([start_node])
 
-func add_dialogue_node():
+func add_dialogue_node() -> void:
 	#should manually set name of dialogue node otherwise graph edit messes up its connections, 
 	#thinks node1 is node3 and etc. for some reason
-	var dlg_node = DIALOGUE_NODE.instantiate()
-	var dlg_nodes_count:int = graph_edit.get_children().filter(
+	var node = DIALOGUE_NODE.instantiate()
+	var same_type_node_count:int = graph_edit.get_children().filter(
 		func(c): return c is DialogueNode).size()
-	dlg_node.name = "DialogueNode" + str(dlg_nodes_count + 1)
-	dlg_node.title = dlg_node.name
-	graph_edit.add_child(dlg_node)
-	set_node_pos_to_mouse_pos(dlg_node)
-	update_slots_color([dlg_node])
+	node.name = "DialogueNode" + str(same_type_node_count + 1)
+	node.title = node.name
+	graph_edit.add_child(node)
+	set_node_pos_to_mouse_pos(node)
+	update_slots_color([node])
+
+func add_condition_node() -> void:
+	var node = CONDITION_NODE.instantiate()
+	var same_type_node_count:int = graph_edit.get_children().filter(
+		func(c): return c is ConditionNode).size()
+	node.name = "ConditionNode" + str(same_type_node_count + 1)
+	node.title = node.name
+	graph_edit.add_child(node)
+	set_node_pos_to_mouse_pos(node)
+	update_slots_color([node])
 
 func set_node_pos_to_mouse_pos(node: GraphNode):
 	node.set_position_offset((graph_edit.get_local_mouse_position() + graph_edit.scroll_offset) / graph_edit.zoom)
 
 func _on_graph_edit_connection_request(
-	from_node: StringName, from_port: int, to_node: StringName, to_port: int
-	) -> void:
-	#if graph_edit.get_node(str(from_node)) is StartNode:
-		#for con: Dictionary in graph_edit.get_connection_list():
-			#if con.to_node == to_node and con.to_port == to_port:
-				#return
+	from_node: StringName, from_port: int, 
+	to_node: StringName, to_port: int) -> void:
 	graph_edit.connect_node(from_node, from_port, to_node, to_port)
 
 func _on_graph_edit_disconnection_request(
@@ -144,6 +152,8 @@ func init_graph(graph_data: GraphData):
 		# Get new node from factory autoload (singleton)
 		var node: PopoGraphNode = GraphNodeFactory.create_node(data)
 		node.load_data(data)
+		if node is ConditionNode:
+			(node as ConditionNode).variables_request.connect(_on_condition_node_variables_request)
 		graph_edit.add_child(node)
 		if !node.is_node_ready(): await node.ready
 	
@@ -186,3 +196,7 @@ func update_slots_color(nodes : Array = graph_edit.get_children()):
 			node.set_slot(i, enabled_left, 0, color_left, enabled_right, 0, color_right)
 		
 		if 'base_color' in node: node.base_color = base_color
+
+func _on_condition_node_variables_request(
+	sender: ConditionNode, value_button: OptionButton):
+		sender.set_up_value(value_button, variables.get_data())

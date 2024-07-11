@@ -83,12 +83,14 @@ connection_lines_thickness = 6.0
 show_zoom_label = true
 
 [node name="AddNodeMenu" type="PopupMenu" parent="HSplitContainer/GraphPanel/GraphEdit"]
-size = Vector2i(100, 62)
-item_count = 2
+size = Vector2i(104, 89)
+item_count = 3
 item_0/text = "Start"
 item_0/id = 0
 item_1/text = "Dialogue"
 item_1/id = 1
+item_2/text = "Condition"
+item_2/id = 2
 
 [node name="LoadDialog" type="FileDialog" parent="HSplitContainer/GraphPanel"]
 title = "Open a File"
