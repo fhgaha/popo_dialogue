@@ -9,14 +9,14 @@
 
 [node name="Variable0" type="HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
-offset_right = 254.0
+offset_right = 231.0
 offset_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 2
 script = ExtResource("1_777pj")
 
 [node name="Name" type="LineEdit" parent="."]
-custom_minimum_size = Vector2(90, 30)
+custom_minimum_size = Vector2(60, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Variable Name"
@@ -45,10 +45,15 @@ placeholder_text = "Value"
 [node name="IntValue" type="SpinBox" parent="."]
 visible = false
 layout_mode = 2
+allow_greater = true
+allow_lesser = true
 
 [node name="FloatValue" type="SpinBox" parent="."]
 visible = false
 layout_mode = 2
+step = 0.01
+allow_greater = true
+allow_lesser = true
 
 [node name="BoolValue" type="CheckBox" parent="."]
 visible = false

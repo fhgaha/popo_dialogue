@@ -53,7 +53,7 @@ script = ExtResource("2_8yif6")
 layout_mode = 2
 text = "Variables"
 
-[node name="Add" type="Button" parent="HSplitContainer/Data/VariablesPanel"]
+[node name="AddVariable" type="Button" parent="HSplitContainer/Data/VariablesPanel"]
 layout_mode = 2
 text = "+"
 
@@ -100,13 +100,13 @@ file_mode = 0
 root_subfolder = "res://game/dialogs"
 filters = PackedStringArray("*.res")
 
-[connection signal="pressed" from="HSplitContainer/Data/File/Add" to="HSplitContainer/GraphPanel" method="_on_add_pressed"]
-[connection signal="pressed" from="HSplitContainer/Data/File/Save" to="HSplitContainer/GraphPanel" method="_on_save_pressed"]
-[connection signal="pressed" from="HSplitContainer/Data/File/Load" to="HSplitContainer/GraphPanel" method="_on_load_pressed"]
-[connection signal="pressed" from="HSplitContainer/Data/VariablesPanel/Add" to="HSplitContainer/Data/VariablesPanel" method="_on_add_pressed"]
-[connection signal="connection_request" from="HSplitContainer/GraphPanel/GraphEdit" to="HSplitContainer/GraphPanel" method="_on_graph_edit_connection_request"]
-[connection signal="delete_nodes_request" from="HSplitContainer/GraphPanel/GraphEdit" to="HSplitContainer/GraphPanel" method="_on_graph_edit_delete_nodes_request"]
-[connection signal="disconnection_request" from="HSplitContainer/GraphPanel/GraphEdit" to="HSplitContainer/GraphPanel" method="_on_graph_edit_disconnection_request"]
-[connection signal="popup_request" from="HSplitContainer/GraphPanel/GraphEdit" to="HSplitContainer/GraphPanel" method="_on_graph_edit_popup_request"]
-[connection signal="id_pressed" from="HSplitContainer/GraphPanel/GraphEdit/AddNodeMenu" to="HSplitContainer/GraphPanel" method="_on_add_node_menu_id_pressed"]
-[connection signal="file_selected" from="HSplitContainer/GraphPanel/LoadDialog" to="HSplitContainer/GraphPanel" method="_on_load_dialog_file_selected"]
+[connection signal="pressed" from="HSplitContainer/Data/File/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="HSplitContainer/Data/File/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="HSplitContainer/Data/File/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="HSplitContainer/Data/VariablesPanel/AddVariable" to="HSplitContainer/Data/VariablesPanel" method="_on_add_pressed"]
+[connection signal="connection_request" from="HSplitContainer/GraphPanel/GraphEdit" to="." method="_on_graph_edit_connection_request"]
+[connection signal="delete_nodes_request" from="HSplitContainer/GraphPanel/GraphEdit" to="." method="_on_graph_edit_delete_nodes_request"]
+[connection signal="disconnection_request" from="HSplitContainer/GraphPanel/GraphEdit" to="." method="_on_graph_edit_disconnection_request"]
+[connection signal="popup_request" from="HSplitContainer/GraphPanel/GraphEdit" to="." method="_on_graph_edit_popup_request"]
+[connection signal="id_pressed" from="HSplitContainer/GraphPanel/GraphEdit/AddNodeMenu" to="." method="_on_add_node_menu_id_pressed"]
+[connection signal="file_selected" from="HSplitContainer/GraphPanel/LoadDialog" to="." method="_on_load_dialog_file_selected"]

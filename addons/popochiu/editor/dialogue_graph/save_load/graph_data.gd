@@ -4,8 +4,11 @@ class ToPopochiuDialogue:
 	var callables: Array[Callable] = []
 	var options  : Array[String]   = []
 
-@export var connections: Array[Dictionary]
-@export var nodes      : Array[NodeData]
+@export var scroll_offset : Vector2
+@export var connections   : Array[Dictionary]
+@export var nodes         : Array[NodeData]
+#@export var variables     : Array[VariableItemData]
+@export var variables     : Dictionary
 
 var cur_node: NodeData
  

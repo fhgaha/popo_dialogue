@@ -8,6 +8,7 @@ const DIALOGUE_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes
 @onready var add_node_menu: PopupMenu = $HSplitContainer/GraphPanel/GraphEdit/AddNodeMenu
 @onready var load_dialog: FileDialog = $HSplitContainer/GraphPanel/LoadDialog
 @onready var file_name_label: Label = $HSplitContainer/Data/FileName
+@onready var variables: VariablesPanel = $HSplitContainer/Data/VariablesPanel
 
 var res_path : String
 
@@ -24,8 +25,9 @@ func _ready() -> void:
 	editor_settings.settings_changed.connect(update_slots_color)
 
 func _on_add_pressed() -> void:
-	var start_node = START_NODE.instantiate()
-	graph_edit.add_child(start_node)
+	#var start_node = START_NODE.instantiate()
+	#graph_edit.add_child(start_node)
+	pass
 
 func _on_graph_edit_delete_nodes_request(nodes: Array[StringName]) -> void:
 	for c: Node in graph_edit.get_children():
@@ -93,12 +95,16 @@ func save_data(save_path: String) -> void:
 	var graph_data := GraphData.new()
 	graph_data.resource_name = save_path.split('/', false)[-1]
 	graph_data.take_over_path(save_path)
+	graph_data.scroll_offset = graph_edit.scroll_offset
 	
 	graph_data.connections = graph_edit.get_connection_list()
 	for node in graph_edit.get_children():
 		if node is PopoGraphNode:
 			var node_data = node.as_node_data()
 			graph_data.nodes.append(node_data)
+	
+	graph_data.variables = variables.get_data()
+	
 	if ResourceSaver.save(graph_data, save_path) == OK:
 		#print("Graph saved")
 		pass
@@ -117,7 +123,9 @@ func load_data(file_path: String):
 	if ResourceLoader.exists(file_path):
 		var graph_data = ResourceLoader.load(file_path)
 		if graph_data is GraphData:
-			init_graph(graph_data)
+			#awaiting for connections to load so update_slots_color()
+			#will work
+			await init_graph(graph_data)
 			file_name_label.text = graph_data.resource_name
 		else:
 			# Error loading data
@@ -126,6 +134,7 @@ func load_data(file_path: String):
 		# File not found
 		push_error("couldnt find file at %s", file_path)
 	
+	#await get_tree().create_timer(0.1).timeout
 	update_slots_color()
 
 func init_graph(graph_data: GraphData):
@@ -141,6 +150,9 @@ func init_graph(graph_data: GraphData):
 	for con: Dictionary in graph_data.connections:
 		var _err = graph_edit.connect_node(
 			con.from_node, con.from_port, con.to_node, con.to_port)
+	
+	variables.load_data(graph_data.variables)
+	graph_edit.scroll_offset = graph_data.scroll_offset
 
 func clear_graph():
 	graph_edit.clear_connections()
@@ -166,9 +178,11 @@ func update_slots_color(nodes : Array = graph_edit.get_children()):
 			var enabled_left : bool = node.is_slot_enabled_left(i)
 			var enabled_right : bool = node.is_slot_enabled_right(i)
 			var color_left : Color = node.get_slot_color_left(i)
-			if color_left.is_equal_approx(light_color) or color_left.is_equal_approx(dark_color): color_left = base_color
+			if color_left.is_equal_approx(light_color) or color_left.is_equal_approx(dark_color): 
+				color_left = base_color
 			var color_right : Color = node.get_slot_color_right(i)
-			if color_right.is_equal_approx(light_color) or color_right.is_equal_approx(dark_color): color_right = base_color
+			if color_right.is_equal_approx(light_color) or color_right.is_equal_approx(dark_color): 
+				color_right = base_color
 			node.set_slot(i, enabled_left, 0, color_left, enabled_right, 0, color_right)
 		
 		if 'base_color' in node: node.base_color = base_color

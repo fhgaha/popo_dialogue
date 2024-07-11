@@ -76,16 +76,6 @@ func _on_add_pressed() -> void:
 
 func _on_delete_requested(variable : BoxContainer) -> void:
 	variable.queue_free()
-	
-	#var idx := variable.get_index()
-	#undo_redo.create_action('Delete variable')
-	#undo_redo.add_do_method(var_container, 'remove_child', variable)
-	#undo_redo.add_do_method(self, '_on_modified')
-	#undo_redo.add_undo_method(self, '_on_modified')
-	#undo_redo.add_undo_method(var_container, 'add_child', variable)
-	#undo_redo.add_undo_method(var_container, 'move_child', variable, idx)
-	#undo_redo.add_undo_reference(variable)
-	#undo_redo.commit_action()
 
 func _on_modified(_a= 0, _b= 0) -> void:
 	modified.emit()
