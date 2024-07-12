@@ -13,7 +13,7 @@ func _on_start() -> void:
 	# (!) It MUST always use an await
 	
 	# Create a new Expression object
-	pass
+	super()
 
 func _option_selected(opt: PopochiuDialogOption) -> void:
 	# You can make the player character say the selected option with:

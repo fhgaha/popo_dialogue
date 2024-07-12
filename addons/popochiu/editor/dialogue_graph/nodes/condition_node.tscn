@@ -64,9 +64,10 @@ popup/item_4/id = 4
 popup/item_5/text = "<="
 popup/item_5/id = 5
 
-[node name="Value2" type="OptionButton" parent="VBoxContainer"]
+[node name="Value2" type="LineEdit" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+placeholder_text = "Value"
 
 [node name="TrueLabel" type="Label" parent="."]
 layout_mode = 2
@@ -79,5 +80,5 @@ text = "False
 "
 horizontal_alignment = 2
 
+[connection signal="item_selected" from="VBoxContainer/Value1" to="." method="_on_value_1_item_selected"]
 [connection signal="pressed" from="VBoxContainer/Value1" to="." method="_on_value_1_pressed"]
-[connection signal="pressed" from="VBoxContainer/Value2" to="." method="_on_value_2_pressed"]

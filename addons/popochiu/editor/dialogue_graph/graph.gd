@@ -153,7 +153,10 @@ func init_graph(graph_data: GraphData):
 		var node: PopoGraphNode = GraphNodeFactory.create_node(data)
 		node.load_data(data)
 		if node is ConditionNode:
-			(node as ConditionNode).variables_request.connect(_on_condition_node_variables_request)
+			(node as ConditionNode).variables_request.connect(
+				_on_condition_node_variables_request)
+			(node as ConditionNode).value1_selected.connect(
+				_on_condition_node_value1_selected)
 		graph_edit.add_child(node)
 		if !node.is_node_ready(): await node.ready
 	
@@ -200,3 +203,7 @@ func update_slots_color(nodes : Array = graph_edit.get_children()):
 func _on_condition_node_variables_request(
 	sender: ConditionNode, value_button: OptionButton):
 		sender.set_up_value(value_button, variables.get_data())
+
+func _on_condition_node_value1_selected(sender: ConditionNode, index: int):
+	#prints("sel:", sender, index)
+	pass
