@@ -75,7 +75,7 @@ func add_dialogue_node() -> void:
 	update_slots_color([node])
 
 func add_condition_node() -> void:
-	var node = GraphNodeFactory.create_dialogue_node()
+	var node = GraphNodeFactory.create_condition_node()
 	var same_type_node_count:int = graph_edit.get_children().filter(
 		func(c): return c is ConditionNode).size()
 	node.name = "ConditionNode" + str(same_type_node_count + 1)

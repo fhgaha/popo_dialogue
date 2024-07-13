@@ -115,7 +115,8 @@ func _enable_plugin() -> void:
 		ad.popup_centered()
 
 	EditorInterface.set_plugin_enabled("popochiu/editor/gizmos", true)
-	EditorInterface.set_plugin_enabled("popochiu/editor/dialogue_graph", true)
+	if DirAccess.dir_exists_absolute("res://addons/popochiu/editor/dialogue_graph/"):
+		EditorInterface.set_plugin_enabled("popochiu/editor/dialogue_graph", true)
 
 func _disable_plugin() -> void:
 	remove_autoload_singleton("Globals")
@@ -129,7 +130,8 @@ func _disable_plugin() -> void:
 	remove_autoload_singleton("A")
 	_remove_input_actions()
 	EditorInterface.set_plugin_enabled("popochiu/editor/gizmos", false)
-	EditorInterface.set_plugin_enabled("popochiu/editor/dialogue_graph", false)
+	if EditorInterface.is_plugin_enabled("popochiu/editor/dialogue_graph"):
+		EditorInterface.set_plugin_enabled("popochiu/editor/dialogue_graph", false)
 	remove_control_from_docks(dock)
 
 
