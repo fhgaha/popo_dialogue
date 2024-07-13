@@ -1,9 +1,10 @@
 @tool
 class_name DialogueGraph extends Control
 
-const START_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/start_node.tscn")
-const DIALOGUE_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/dialogue_node.tscn")
-const CONDITION_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/condition_node.tscn")
+#const START_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/start_node.tscn")
+#const DIALOGUE_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/dialogue_node.tscn")
+#const CONDITION_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/condition_node.tscn")
+#const SET_NODE = preload("res://addons/popochiu/editor/dialogue_graph/nodes/set_node.tscn")
 
 @onready var graph_edit: GraphEdit = $HSplitContainer/GraphPanel/GraphEdit
 @onready var add_node_menu: PopupMenu = $HSplitContainer/GraphPanel/GraphEdit/AddNodeMenu
@@ -52,9 +53,10 @@ func _on_add_node_menu_id_pressed(id: int) -> void:
 		0: add_start_node()
 		1: add_dialogue_node()
 		2: add_condition_node()
+		3: add_set_node()
 
 func add_start_node() -> void:
-	var start_node = START_NODE.instantiate()
+	var start_node = GraphNodeFactory.create_start_node()
 	start_node.name = "StartNode"
 	graph_edit.add_child(start_node)
 	set_node_pos_to_mouse_pos(start_node)
@@ -63,7 +65,7 @@ func add_start_node() -> void:
 func add_dialogue_node() -> void:
 	#should manually set name of dialogue node otherwise graph edit messes up its connections, 
 	#thinks node1 is node3 and etc. for some reason
-	var node = DIALOGUE_NODE.instantiate()
+	var node = GraphNodeFactory.create_dialogue_node()
 	var same_type_node_count:int = graph_edit.get_children().filter(
 		func(c): return c is DialogueNode).size()
 	node.name = "DialogueNode" + str(same_type_node_count + 1)
@@ -73,10 +75,20 @@ func add_dialogue_node() -> void:
 	update_slots_color([node])
 
 func add_condition_node() -> void:
-	var node = CONDITION_NODE.instantiate()
+	var node = GraphNodeFactory.create_dialogue_node()
 	var same_type_node_count:int = graph_edit.get_children().filter(
 		func(c): return c is ConditionNode).size()
 	node.name = "ConditionNode" + str(same_type_node_count + 1)
+	node.title = node.name
+	graph_edit.add_child(node)
+	set_node_pos_to_mouse_pos(node)
+	update_slots_color([node])
+
+func add_set_node() -> void:
+	var node = GraphNodeFactory.create_set_node()
+	var same_type_node_count:int = graph_edit.get_children().filter(
+		func(c): return c is SetNode).size()
+	node.name = "SetNode" + str(same_type_node_count + 1)
 	node.title = node.name
 	graph_edit.add_child(node)
 	set_node_pos_to_mouse_pos(node)
@@ -152,13 +164,17 @@ func init_graph(graph_data: GraphData):
 		# Get new node from factory autoload (singleton)
 		var node: PopoGraphNode = GraphNodeFactory.create_node(data)
 		node.load_data(data)
-		if node is ConditionNode:
-			(node as ConditionNode).variables_request.connect(
-				_on_condition_node_variables_request)
-			(node as ConditionNode).value1_selected.connect(
-				_on_condition_node_value1_selected)
 		graph_edit.add_child(node)
 		if !node.is_node_ready(): await node.ready
+		if node is ConditionNode:
+			var cn = node as ConditionNode
+			cn.variables_request.connect(_on_condition_node_variables_request)
+			cn.value1_selected.connect(_on_condition_node_value1_selected)
+			cn.set_up_value(variables.get_data())
+		if node is SetNode:
+			var sn = node as SetNode
+			sn.variables_request.connect(_on_set_node_variables_request)
+			sn.set_up_variable(variables.get_data())
 	
 	for con: Dictionary in graph_data.connections:
 		var _err = graph_edit.connect_node(
@@ -200,10 +216,12 @@ func update_slots_color(nodes : Array = graph_edit.get_children()):
 		
 		if 'base_color' in node: node.base_color = base_color
 
-func _on_condition_node_variables_request(
-	sender: ConditionNode, value_button: OptionButton):
-		sender.set_up_value(value_button, variables.get_data())
+func _on_condition_node_variables_request(sender: ConditionNode) -> void:
+		sender.set_up_value(variables.get_data())
 
 func _on_condition_node_value1_selected(sender: ConditionNode, index: int):
 	#prints("sel:", sender, index)
 	pass
+
+func _on_set_node_variables_request(sender: SetNode) -> void:
+	sender.set_up_variable(variables.get_data())

@@ -42,7 +42,8 @@ func handle(option: String = "", data: ToPopochiuDialogue = null) -> ToPopochiuD
 			_: #player needs to click an option
 				data.options = options
 	elif cur_node is ConditionNodeData:
-		cur_node = cur_node as ConditionNodeData
+		handle("", data)
+	elif cur_node is SetNodeData:
 		handle("", data)
 	
 	return data
@@ -60,6 +61,31 @@ func next(node: NodeData, option: String = "") -> NodeData:
 			push_error("This node does not have connections")
 			return null
 		1:
+			if cur_node is SetNodeData:
+				cur_node = cur_node as SetNodeData
+				#set variable
+				var variable_val = variables[cur_node.variable]["value"]
+				var value
+				match variables[cur_node.variable]["type"]:
+					TYPE_STRING:
+						value = cur_node.value as String
+					TYPE_INT:
+						value = cur_node.value.to_int()
+					TYPE_FLOAT:
+						value = cur_node.value.to_float()
+					TYPE_BOOL:
+						value = true if cur_node.value.to_lower() == "true" else false
+					_:
+						pass
+				match cur_node.operator:
+					"=" : variables[cur_node.variable]["value"] = value
+					"+=": variables[cur_node.variable]["value"] += value
+					"-=": variables[cur_node.variable]["value"] -= value
+					"*=": variables[cur_node.variable]["value"] *= value
+					"/=": variables[cur_node.variable]["value"] /= value
+					_: pass
+			
+			#dialogue node with no options entered
 			var next_node_name: String = from_node_cons[0]["to_node"]
 			var next_node: NodeData = nodes.filter(
 				func(n): return n.name == next_node_name
@@ -90,7 +116,7 @@ func next(node: NodeData, option: String = "") -> NodeData:
 					value2 = true if cur_node.value2.to_lower() == "true" else false
 				_:
 					pass
-			
+			prints(type_string(typeof(value1)), type_string(typeof(value2)))
 			var condition_result: bool
 			match cur_node.operator:
 				"==": condition_result = value1 == value2
@@ -102,7 +128,8 @@ func next(node: NodeData, option: String = "") -> NodeData:
 				_: pass
 			
 			var con_idx : int = 0 if condition_result else 1
-			var next_node_name: String = from_node_cons[con_idx]["to_node"]
+			var next_node_name: String = from_node_cons.filter(func(c: Dictionary):
+				return c["from_port"] == con_idx)[0]["to_node"]
 			var next_node: NodeData = nodes.filter(
 				func(n): return n.name == next_node_name
 			)[0]
