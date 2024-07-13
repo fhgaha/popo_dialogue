@@ -41,7 +41,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/popochiu/editor/gizmos/plugin.cfg", "res://addons/popochiu/plugin.cfg")
+enabled=PackedStringArray("res://addons/popochiu/editor/dialogue_graph/plugin.cfg", "res://addons/popochiu/editor/gizmos/plugin.cfg", "res://addons/popochiu/plugin.cfg")
 
 [input]
 

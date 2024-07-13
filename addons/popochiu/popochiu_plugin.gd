@@ -10,10 +10,8 @@ const SYMBOL := "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
 const POPOCHIU_CANVAS_EDITOR_MENU = preload(
 	"res://addons/popochiu/editor/canvas_editor_menu/popochiu_canvas_editor_menu.tscn"
 )
-const DIALOGUE_GRAPH = preload("res://addons/popochiu/editor/dialogue_graph/graph.tscn")
 
 var dock: Panel
-var dialogue_graph: DialogueGraph
 
 #var EditorInterface := get_editor_interface()
 var _editor_file_system := EditorInterface.get_resource_filesystem()
@@ -84,10 +82,6 @@ func _enter_tree() -> void:
 		EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU,
 		POPOCHIU_CANVAS_EDITOR_MENU.instantiate()
 	)
-	
-	# ---- Add dialogue graph on bottom panel
-	dialogue_graph = DIALOGUE_GRAPH.instantiate()
-	add_control_to_bottom_panel(dialogue_graph, "Popo Dialogue")
 
 
 func _exit_tree() -> void:
@@ -100,11 +94,6 @@ func _exit_tree() -> void:
 	for eip in _inspector_plugins:
 		if is_instance_valid(eip):
 			remove_inspector_plugin(eip)
-	
-	if is_instance_valid(dialogue_graph):
-		remove_control_from_bottom_panel(dialogue_graph)
-		dialogue_graph.queue_free()
-
 
 #endregion
 
@@ -126,7 +115,7 @@ func _enable_plugin() -> void:
 		ad.popup_centered()
 
 	EditorInterface.set_plugin_enabled("popochiu/editor/gizmos", true)
-
+	EditorInterface.set_plugin_enabled("popochiu/editor/dialogue_graph", true)
 
 func _disable_plugin() -> void:
 	remove_autoload_singleton("Globals")
@@ -140,6 +129,7 @@ func _disable_plugin() -> void:
 	remove_autoload_singleton("A")
 	_remove_input_actions()
 	EditorInterface.set_plugin_enabled("popochiu/editor/gizmos", false)
+	EditorInterface.set_plugin_enabled("popochiu/editor/dialogue_graph", false)
 	remove_control_from_docks(dock)
 
 
@@ -206,14 +196,3 @@ func _on_dock_ready() -> void:
 
 
 #endregion
-
-# ---- Two methods below allow opening GraphData res in Popo Dialogue ---------------
-
-func _handles(object):
-	return object is GraphData
-
-func _edit(object):
-	if object is GraphData and is_instance_valid(dialogue_graph):
-		dialogue_graph.res_path = object.resource_path
-		dialogue_graph.load_data(object.resource_path)
-		make_bottom_panel_item_visible(dialogue_graph)
