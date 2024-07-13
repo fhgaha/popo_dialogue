@@ -234,6 +234,7 @@ func _edit(object):
 	#separate window
 	var popo_dlg_window = Window.new()
 	popo_dlg_window.popup_window = true
+	#popo_dlg_window.theme = EditorInterface.get_editor_theme()
 	var screen_size := DisplayServer.screen_get_size()
 	popo_dlg_window.size = Vector2i(screen_size.x - 200, screen_size.y - 200)
 	popo_dlg_window.position = Vector2i(200/2, 200/2)
@@ -241,6 +242,7 @@ func _edit(object):
 	popo_dlg_window.min_size = Vector2i(300, 200)
 	popo_dlg_window.close_requested.connect(func(): popo_dlg_window.hide())
 	dialogue_graph = DIALOGUE_GRAPH.instantiate()
+	dialogue_graph.theme = EditorInterface.get_editor_theme()
 	popo_dlg_window.add_child(dialogue_graph)
 	add_child(popo_dlg_window)
 	popo_dlg_window.show()
