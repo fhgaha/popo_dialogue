@@ -65,9 +65,7 @@ popup/item_5/text = "<="
 popup/item_5/id = 5
 
 [node name="Value2" type="LineEdit" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-placeholder_text = "Value"
 
 [node name="TrueLabel" type="Label" parent="."]
 layout_mode = 2
