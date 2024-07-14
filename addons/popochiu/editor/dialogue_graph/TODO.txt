@@ -1,1 +1,3 @@
-- In dialogue nodes punctuation is white
+x In dialogue nodes punctuation is white
+- Condition node expands vertically too much
+- 
