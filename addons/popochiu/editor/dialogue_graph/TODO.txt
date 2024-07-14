@@ -1,0 +1,1 @@
+- In dialogue nodes punctuation is white

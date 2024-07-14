@@ -79,9 +79,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+placeholder_text = "Enter the character's cue"
 wrap_mode = 1
-syntax_highlighter = SubResource("CodeHighlighter_btpy8")
-highlight_all_occurrences = true
 
 [node name="ExpandButton" type="Button" parent="Slot_1/DialogueContainer"]
 visible = false
@@ -99,8 +98,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 796.0
-offset_bottom = 596.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 

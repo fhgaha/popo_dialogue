@@ -224,8 +224,8 @@ func _on_variables_modified():
 	#prints("variables modified")
 	pass
 
-func _on_variables_amount_changed(var_name: String, is_added: bool) -> void:
-	if !is_added:
+func _on_variables_amount_changed(var_name: String, var_was_added: bool) -> void:
+	if !var_was_added:
 		for cn: ConditionNode in graph_edit.get_children().filter(
 			func(c): return c is ConditionNode):
 			if cn.value1.text == var_name:
