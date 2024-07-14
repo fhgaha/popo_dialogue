@@ -14,12 +14,13 @@ var base_color : Color
 
 func _ready() -> void:
 	add_node_menu.hide()
-	var char_names:PackedStringArray = DirAccess.get_directories_at(
-		"res://game/characters/")
 	
 	if !Engine.is_editor_hint(): return
 	editor_settings = EditorInterface.get_editor_settings()
 	editor_settings.settings_changed.connect(update_slots_color)
+	
+	variables.modified.connect(_on_variables_modified)
+	variables.amount_changed.connect(_on_variables_amount_changed)
 	
 	#to stop EditorTheme error
 	$HSplitContainer.theme = Theme.new()
@@ -214,7 +215,23 @@ func update_slots_color(nodes : Array = graph_edit.get_children()):
 		if 'base_color' in node: node.base_color = base_color
 
 func _on_condition_node_variables_request(sender: ConditionNode) -> void:
-	sender.set_up_value(variables.get_data())
+	sender.set_up_value_items(variables.get_data())
 
 func _on_set_node_variables_request(sender: SetNode) -> void:
 	sender.set_up_variable(variables.get_data())
+
+func _on_variables_modified():
+	#prints("variables modified")
+	pass
+
+func _on_variables_amount_changed(var_name: String, is_added: bool) -> void:
+	if !is_added:
+		for cn: ConditionNode in graph_edit.get_children().filter(
+			func(c): return c is ConditionNode):
+			if cn.value1.text == var_name:
+				cn.erase_value1()
+		
+		for sn: SetNode in graph_edit.get_children().filter(
+			func(c): return c is SetNode):
+			if sn.variable.text == var_name:
+				sn.clear_variable_button()

@@ -2,6 +2,7 @@
 class_name VariablesPanel extends Node
 
 signal modified
+signal amount_changed(var_name: String, is_added: bool)
 
 const VARIABLE_ITEM_SCENE = preload("res://addons/popochiu/editor/dialogue_graph/variables_panel/variable_item.tscn")
 
@@ -30,7 +31,6 @@ func clear() -> void:
 		if child is HBoxContainer:
 			child.queue_free()
 
-## add new variable item to the list
 func add_variable(
 	new_name:= '', 
 	data:= {'type': TYPE_STRING, 'value': ''}, 
@@ -44,14 +44,12 @@ func add_variable(
 	new_variable.load_data(new_name, data)
 	new_variable.modified.connect(_on_modified)
 	new_variable.delete_requested.connect(_on_delete_requested)
-	
+	amount_changed.emit(new_variable.var_name.text, true)
 	return new_variable
 
-## remove the variable with at the given index (idx)
-func remove_variable(idx : int) -> void:
-	var variable = var_container.get_child(idx)
+func remove_variable(variable: VariableItem) -> void:
+	amount_changed.emit(variable.var_name.text, false)
 	variable.queue_free()
-	_on_modified()
 
 func get_variable(var_name : String) -> VariableItem:
 	for child in var_container.get_children():
@@ -74,8 +72,8 @@ func set_value(var_name : String, value) -> void:
 func _on_add_pressed() -> void:
 	add_variable()
 
-func _on_delete_requested(variable : BoxContainer) -> void:
-	variable.queue_free()
+func _on_delete_requested(variable: VariableItem) -> void:
+	remove_variable(variable)
 
 func _on_modified(_a= 0, _b= 0) -> void:
 	modified.emit()

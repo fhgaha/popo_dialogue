@@ -30,7 +30,7 @@ func load_data(data: NodeData) -> void:
 func _on_value_1_pressed() -> void:
 	variables_request.emit(self)
 
-func set_up_value(variables: Dictionary) -> void:
+func set_up_value_items(variables: Dictionary) -> void:
 	#variables example:
 	#{ "var1": { "type": 4, "value": "adasd" }, "var2": { "type": 2, "value": 11 }, "var6": { "type": 3, "value": 11.11 }, "var5": { "type": 1, "value": true } }
 	value1.clear()
@@ -40,3 +40,8 @@ func set_up_value(variables: Dictionary) -> void:
 
 func _on_value_1_item_selected(index: int) -> void:
 	pass
+
+func erase_value1() -> void:
+	value1.text = ""
+	value1.selected = -1
+	prints("cn:", value1.text)

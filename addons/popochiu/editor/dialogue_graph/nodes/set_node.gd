@@ -38,3 +38,8 @@ func set_up_variable(variables: Dictionary) -> void:
 
 	for key in variables:
 		variable.add_item(key, variables[key]["type"])
+
+func clear_variable_button() -> void:
+	variable.text = ""
+	variable.selected = -1
+	prints("sn:", variable.text)

@@ -2,14 +2,14 @@
 class_name VariableItem extends HBoxContainer
 
 signal modified
-signal delete_requested(node : BoxContainer)
+signal delete_requested(node : VariableItem)
 
-@onready var var_name     :LineEdit     = $Name
-@onready var type         :OptionButton = $Type
-@onready var string_value :LineEdit     = $StringValue
-@onready var int_value    :SpinBox      = $IntValue
-@onready var float_value  :SpinBox      = $FloatValue
-@onready var bool_value   :CheckBox     = $BoolValue
+@onready var var_name     : LineEdit     = $Name
+@onready var type         : OptionButton = $Type
+@onready var string_value : LineEdit     = $StringValue
+@onready var int_value    : SpinBox      = $IntValue
+@onready var float_value  : SpinBox      = $FloatValue
+@onready var bool_value   : CheckBox     = $BoolValue
 
 const types : Array[Variant.Type] = [TYPE_STRING, TYPE_INT, TYPE_FLOAT, TYPE_BOOL]
 var last_set_name : String
