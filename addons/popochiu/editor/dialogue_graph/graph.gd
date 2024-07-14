@@ -20,6 +20,9 @@ func _ready() -> void:
 	if !Engine.is_editor_hint(): return
 	editor_settings = EditorInterface.get_editor_settings()
 	editor_settings.settings_changed.connect(update_slots_color)
+	
+	#to stop EditorTheme error
+	$HSplitContainer.theme = Theme.new()
 
 func _on_add_pressed() -> void:
 	#var start_node = START_NODE.instantiate()
@@ -105,6 +108,7 @@ func _on_graph_edit_disconnection_request(
 func _on_save_pressed() -> void:
 	assert(!res_path.is_empty(), "DialogueGraph: resource_path is empty")
 	save_data(res_path)
+	load_data(res_path)
 
 func save_data(save_path: String) -> void:
 	var graph_data := GraphData.new()
@@ -149,7 +153,6 @@ func load_data(file_path: String):
 		# File not found
 		push_error("couldnt find file at %s", file_path)
 	
-	#await get_tree().create_timer(0.1).timeout
 	update_slots_color()
 
 func init_graph(graph_data: GraphData):
@@ -165,11 +168,11 @@ func init_graph(graph_data: GraphData):
 			var cn = node as ConditionNode
 			cn.variables_request.connect(_on_condition_node_variables_request)
 			cn.value1_selected.connect(_on_condition_node_value1_selected)
-			cn.set_up_value(variables.get_data())
+			#cn.set_up_value(variables.get_data())
 		if node is SetNode:
 			var sn = node as SetNode
 			sn.variables_request.connect(_on_set_node_variables_request)
-			sn.set_up_variable(variables.get_data())
+			#sn.set_up_variable(variables.get_data())
 	
 	for con: Dictionary in graph_data.connections:
 		var _err = graph_edit.connect_node(

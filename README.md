@@ -1,5 +1,5 @@
-1. Every time a dialog is created there is a recourse created in the same folder with `-graph.res` in 
-the end of file name. For example: we create a dialgue named `MyDialogue`, we will see a folder
+1. Every time a dialog is created there is a recourse created in the same folder with `_graph.res` in 
+the end of file name. For example: we create a dialogue named `MyDialogue`, we will see a folder
 created at `res://game/dialogs/my_dialogue/`. Inside that folder there are files
 
 		   my_dialogue.gd
