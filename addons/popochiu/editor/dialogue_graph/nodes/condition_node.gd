@@ -2,7 +2,6 @@
 class_name ConditionNode extends PopoGraphNode
 
 signal variables_request(sender: ConditionNode)
-signal value1_selected(sender: ConditionNode, index: int)
 
 @onready var value1  : OptionButton = $VBoxContainer/Value1
 @onready var operator: OptionButton = $VBoxContainer/Operator
@@ -31,9 +30,6 @@ func load_data(data: NodeData) -> void:
 func _on_value_1_pressed() -> void:
 	variables_request.emit(self)
 
-#func _on_value_2_pressed() -> void:
-	#variables_request.emit(self, value2)
-
 func set_up_value(variables: Dictionary) -> void:
 	#variables example:
 	#{ "var1": { "type": 4, "value": "adasd" }, "var2": { "type": 2, "value": 11 }, "var6": { "type": 3, "value": 11.11 }, "var5": { "type": 1, "value": true } }
@@ -43,4 +39,4 @@ func set_up_value(variables: Dictionary) -> void:
 		value1.add_item(key, variables[key]["type"])
 
 func _on_value_1_item_selected(index: int) -> void:
-	value1_selected.emit(self, index)
+	pass

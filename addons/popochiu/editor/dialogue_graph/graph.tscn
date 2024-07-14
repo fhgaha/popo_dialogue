@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/popochiu/editor/dialogue_graph/graph.gd" id="1_rtjv4"]
 [ext_resource type="Script" path="res://addons/popochiu/editor/dialogue_graph/variables_panel/variables_panel.gd" id="2_8yif6"]
 
-[sub_resource type="Theme" id="Theme_gde61"]
+[sub_resource type="Theme" id="Theme_tmwus"]
 
 [node name="Graph" type="Control"]
 layout_mode = 3
@@ -29,7 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_gde61")
+theme = SubResource("Theme_tmwus")
 
 [node name="MarginContainer" type="MarginContainer" parent="HSplitContainer"]
 layout_mode = 2

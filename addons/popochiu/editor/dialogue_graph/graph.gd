@@ -78,6 +78,7 @@ func add_condition_node() -> void:
 		func(c): return c is ConditionNode).size()
 	node.name = "ConditionNode" + str(same_type_node_count + 1)
 	node.title = node.name
+	node.variables_request.connect(_on_condition_node_variables_request)
 	graph_edit.add_child(node)
 	set_node_pos_to_mouse_pos(node)
 	update_slots_color([node])
@@ -88,6 +89,7 @@ func add_set_node() -> void:
 		func(c): return c is SetNode).size()
 	node.name = "SetNode" + str(same_type_node_count + 1)
 	node.title = node.name
+	node.variables_request.connect(_on_set_node_variables_request)
 	graph_edit.add_child(node)
 	set_node_pos_to_mouse_pos(node)
 	update_slots_color([node])
@@ -167,12 +169,9 @@ func init_graph(graph_data: GraphData):
 		if node is ConditionNode:
 			var cn = node as ConditionNode
 			cn.variables_request.connect(_on_condition_node_variables_request)
-			cn.value1_selected.connect(_on_condition_node_value1_selected)
-			#cn.set_up_value(variables.get_data())
 		if node is SetNode:
 			var sn = node as SetNode
 			sn.variables_request.connect(_on_set_node_variables_request)
-			#sn.set_up_variable(variables.get_data())
 	
 	for con: Dictionary in graph_data.connections:
 		var _err = graph_edit.connect_node(
@@ -215,11 +214,7 @@ func update_slots_color(nodes : Array = graph_edit.get_children()):
 		if 'base_color' in node: node.base_color = base_color
 
 func _on_condition_node_variables_request(sender: ConditionNode) -> void:
-		sender.set_up_value(variables.get_data())
-
-func _on_condition_node_value1_selected(sender: ConditionNode, index: int):
-	#prints("sel:", sender, index)
-	pass
+	sender.set_up_value(variables.get_data())
 
 func _on_set_node_variables_request(sender: SetNode) -> void:
 	sender.set_up_variable(variables.get_data())
