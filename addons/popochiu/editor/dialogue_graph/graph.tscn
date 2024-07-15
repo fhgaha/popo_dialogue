@@ -5,7 +5,7 @@
 
 [sub_resource type="Theme" id="Theme_mik8o"]
 
-[sub_resource type="Theme" id="Theme_1ycet"]
+[sub_resource type="Theme" id="Theme_3s8et"]
 
 [node name="Graph" type="Control"]
 layout_mode = 3
@@ -41,7 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_1ycet")
+theme = SubResource("Theme_3s8et")
 
 [node name="MarginContainer" type="MarginContainer" parent="HSplitContainer"]
 layout_mode = 2

@@ -79,6 +79,7 @@ func add_condition_node() -> void:
 		func(c): return c is ConditionNode).size()
 	node.name = "ConditionNode" + str(same_type_node_count + 1)
 	node.title = node.name
+	
 	node.variables_request.connect(_on_condition_node_variables_request)
 	graph_edit.add_child(node)
 	set_node_pos_to_mouse_pos(node)

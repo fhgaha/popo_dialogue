@@ -28,10 +28,13 @@ var base_color: Color = Color.WHITE
 
 func _ready() -> void:
 	for opt: DialogueOption in options:
-		if !opt.text_changed.is_connected(_on_option_text_changed):
-			opt.text_changed.connect(_on_option_text_changed)
-		if !opt.focus_exited.is_connected(_on_option_focus_exited):
-			opt.focus_exited.connect(_on_option_focus_exited)
+		connect_option_signals(opt)
+
+func connect_option_signals(option: DialogueOption) -> void:
+	if !option.text_changed.is_connected(_on_option_text_changed):
+		option.text_changed.connect(_on_option_text_changed)
+	if !option.focus_exited.is_connected(_on_option_focus_exited):
+		option.focus_exited.connect(_on_option_focus_exited)
 
 func add_empty_option():
 	var opt = OPTION_SCENE.instantiate()
@@ -50,6 +53,7 @@ func _on_option_text_changed(new_text: String, option: DialogueOption):
 	pass
 
 func _on_option_focus_exited():
+	print("_on_option_focus_exited")
 	update_options()
 	update_slots()
 
@@ -59,8 +63,10 @@ func update_options():
 			opt.queue_free()
 			await opt.tree_exited
 	add_empty_option()
+	update_slots()
 
 func update_slots():
+	prints("opt:", options)
 	if options.size() == 1:
 		set_slot(options[0].get_index(), 
 			false, 0, base_color, 
@@ -99,9 +105,10 @@ func load_data(data: NodeData) -> void:
 	if !is_node_ready(): await ready
 	
 	data = data as DialogueNodeData
-	position_offset = data.offset
 	name            = data.name
 	title           = data.name
+	position_offset = data.offset
+	size            = data.size
 	speaker         = data.speaker_name
 	text            = data.text   
 	load_options(data.options)
@@ -112,7 +119,9 @@ func load_options(options_names: Array[String]):
 		var opt = OPTION_SCENE.instantiate()
 		opt.text = opt_text
 		add_child(opt)
+		connect_option_signals(opt)
 		options.append(opt)
+		if !opt.is_node_ready(): await opt.ready
 	if !is_node_ready(): await ready
 	update_slots()
 
@@ -125,6 +134,7 @@ func as_node_data() -> DialogueNodeData:
 	var data := DialogueNodeData.new()
 	data.name         = name
 	data.offset       = position_offset
+	data.size         = size
 	data.speaker_name = speaker
 	data.text         = text
 	var opts : Array[String] = []

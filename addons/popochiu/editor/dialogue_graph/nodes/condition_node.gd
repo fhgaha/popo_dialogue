@@ -11,6 +11,7 @@ func as_node_data() -> NodeData:
 	var data := ConditionNodeData.new()
 	data.name     = name
 	data.offset   = position_offset
+	data.size     = size
 	data.value1   = value1.text
 	data.operator = operator.text
 	data.value2   = value2.text
@@ -20,9 +21,10 @@ func load_data(data: NodeData) -> void:
 	if !is_node_ready(): await ready
 	
 	data = data as ConditionNodeData
-	position_offset = data.offset
 	name            = data.name
 	title           = data.name
+	position_offset = data.offset
+	size            = data.size
 	value1.text     = data.value1
 	operator.text   = data.operator
 	value2.text     = data.value2

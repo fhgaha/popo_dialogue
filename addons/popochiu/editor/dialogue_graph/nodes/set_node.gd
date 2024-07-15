@@ -12,6 +12,7 @@ func as_node_data() -> NodeData:
 	var data := SetNodeData.new()
 	data.name     = name
 	data.offset   = position_offset
+	data.size     = size
 	data.variable = variable.text
 	data.operator = operator.text
 	data.value    = value.text

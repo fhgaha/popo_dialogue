@@ -4,7 +4,7 @@
 
 [node name="ConditionNode" type="GraphNode"]
 custom_minimum_size = Vector2(60, 60)
-offset_right = 186.0
+offset_right = 162.0
 offset_bottom = 205.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
