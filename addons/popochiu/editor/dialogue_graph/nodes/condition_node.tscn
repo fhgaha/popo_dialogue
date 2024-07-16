@@ -3,13 +3,12 @@
 [ext_resource type="Script" path="res://addons/popochiu/editor/dialogue_graph/nodes/condition_node.gd" id="1_16iww"]
 
 [node name="ConditionNode" type="GraphNode"]
-custom_minimum_size = Vector2(60, 60)
-offset_right = 162.0
-offset_bottom = 205.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
+offset_left = 18.0
+offset_top = 195.0
+offset_right = 107.0
+offset_bottom = 250.0
 resizable = true
-title = "ConditionNode"
+title = "Condition"
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
@@ -40,15 +39,17 @@ slot/2/draw_stylebox = true
 script = ExtResource("1_16iww")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 size_flags_vertical = 0
 
 [node name="Value1" type="OptionButton" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(120, 30)
 layout_mode = 2
 size_flags_vertical = 0
 
 [node name="Operator" type="OptionButton" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -68,16 +69,19 @@ popup/item_5/text = "<="
 popup/item_5/id = 5
 
 [node name="Value2" type="LineEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_vertical = 0
 
 [node name="TrueLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_vertical = 0
 text = "True"
 horizontal_alignment = 2
 
 [node name="FalseLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_vertical = 0
 text = "False

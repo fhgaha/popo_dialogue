@@ -53,6 +53,7 @@ func _on_add_node_menu_id_pressed(id: int) -> void:
 		1: add_dialogue_node()
 		2: add_condition_node()
 		3: add_set_node()
+		4: add_test_node()
 
 func add_start_node() -> void:
 	var start_node = GraphNodeFactory.create_start_node()
@@ -96,6 +97,12 @@ func add_set_node() -> void:
 	set_node_pos_to_mouse_pos(node)
 	update_slots_color([node])
 
+func add_test_node():
+	var node = GraphNodeFactory.create_test_node()
+	graph_edit.add_child(node)
+	set_node_pos_to_mouse_pos(node)
+	update_slots_color([node])
+
 func set_node_pos_to_mouse_pos(node: GraphNode):
 	node.set_position_offset((graph_edit.get_local_mouse_position() + graph_edit.scroll_offset) / graph_edit.zoom)
 
@@ -122,6 +129,7 @@ func save_data(save_path: String) -> void:
 	
 	graph_data.connections = graph_edit.get_connection_list()
 	for node in graph_edit.get_children():
+		if node is TestGraphNode: continue
 		if node is PopoGraphNode:
 			var node_data = node.as_node_data()
 			graph_data.nodes.append(node_data)

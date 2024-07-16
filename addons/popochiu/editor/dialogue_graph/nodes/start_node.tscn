@@ -3,11 +3,8 @@
 [ext_resource type="Script" path="res://addons/popochiu/editor/dialogue_graph/nodes/start_node.gd" id="1_kyxsb"]
 
 [node name="StartNode" type="GraphNode"]
-custom_minimum_size = Vector2(60, 60)
-offset_right = 114.0
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 92.0
+offset_bottom = 55.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 title = "StartNode"
@@ -19,8 +16,9 @@ slot/0/right_enabled = true
 slot/0/right_type = 0
 slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
-slot/0/draw_stylebox = false
+slot/0/draw_stylebox = true
 script = ExtResource("1_kyxsb")
 
-[node name="to_show_slots" type="Control" parent="."]
+[node name="Control" type="Control" parent="."]
 layout_mode = 2
+size_flags_vertical = 8

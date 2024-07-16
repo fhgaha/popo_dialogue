@@ -5,7 +5,7 @@
 
 [sub_resource type="Theme" id="Theme_mik8o"]
 
-[sub_resource type="Theme" id="Theme_3s8et"]
+[sub_resource type="Theme" id="Theme_ch8y8"]
 
 [node name="Graph" type="Control"]
 layout_mode = 3
@@ -41,7 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_3s8et")
+theme = SubResource("Theme_ch8y8")
 
 [node name="MarginContainer" type="MarginContainer" parent="HSplitContainer"]
 layout_mode = 2
@@ -116,8 +116,9 @@ connection_lines_thickness = 6.0
 show_zoom_label = true
 
 [node name="AddNodeMenu" type="PopupMenu" parent="HSplitContainer/GraphPanel/GraphEdit"]
-size = Vector2i(104, 116)
-item_count = 4
+size = Vector2i(104, 143)
+visible = true
+item_count = 5
 item_0/text = "Start"
 item_0/id = 0
 item_1/text = "Dialogue"
@@ -126,6 +127,8 @@ item_2/text = "Condition"
 item_2/id = 2
 item_3/text = "SetNode"
 item_3/id = 3
+item_4/text = "TestNode"
+item_4/id = 4
 
 [node name="LoadDialog" type="FileDialog" parent="HSplitContainer/GraphPanel"]
 title = "Open a File"

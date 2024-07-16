@@ -66,7 +66,6 @@ func update_options():
 	update_slots()
 
 func update_slots():
-	prints("opt:", options)
 	if options.size() == 1:
 		set_slot(options[0].get_index(), 
 			false, 0, base_color, 
