@@ -13,6 +13,9 @@ const PopochiuCharacterRow = preload(
 const PopochiuInventoryItemRow = preload(
 	OBJECT_ROW_FOLDER + "inventory_item_row/popochiu_inventory_item_row.gd"
 )
+const PopochiuDialogRow = preload(
+	OBJECT_ROW_FOLDER + "dialog_row/popochiu_dialog_row.gd"
+)
 
 var last_selected: PopochiuObjectRow = null
 
@@ -164,6 +167,7 @@ func _create_row(type_key: int, resource: Resource) -> void:
 				row.is_on_start = true
 		PopochiuResources.Types.DIALOG:
 			is_in_core = PopochiuResources.has_data_value("dialogs", resource.script_name)
+			row.use_graph = false
 	
 	if not is_in_core:
 		row.show_as_not_in_core()
@@ -181,6 +185,9 @@ func _create_object_row(type: int, name_to_add: String) -> PopochiuObjectRow:
 		PopochiuResources.Types.INVENTORY_ITEM:
 			new_obj = POPOCHIU_OBJECT_ROW_SCENE.instantiate()
 			new_obj.set_script(PopochiuInventoryItemRow)
+		PopochiuResources.Types.DIALOG:
+			new_obj = POPOCHIU_OBJECT_ROW_SCENE.instantiate()
+			new_obj.set_script(PopochiuDialogRow)
 		_:
 			new_obj = POPOCHIU_OBJECT_ROW_SCENE.instantiate()
 	

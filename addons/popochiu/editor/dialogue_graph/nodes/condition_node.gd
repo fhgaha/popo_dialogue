@@ -46,4 +46,3 @@ func _on_value_1_item_selected(index: int) -> void:
 func erase_value1() -> void:
 	value1.text = ""
 	value1.selected = -1
-	prints("cn:", value1.text)

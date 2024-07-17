@@ -43,4 +43,3 @@ func set_up_variable(variables: Dictionary) -> void:
 func clear_variable_button() -> void:
 	variable.text = ""
 	variable.selected = -1
-	prints("sn:", variable.text)

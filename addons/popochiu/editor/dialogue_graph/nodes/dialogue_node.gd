@@ -53,7 +53,6 @@ func _on_option_text_changed(new_text: String, option: DialogueOption):
 	pass
 
 func _on_option_focus_exited():
-	print("_on_option_focus_exited")
 	update_options()
 	update_slots()
 

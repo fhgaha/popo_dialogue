@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dxtuplm5v6w33" path="res://addons/popochiu/icons/inventory_item.png" id="5_h6p8m"]
 [ext_resource type="Texture2D" uid="uid://bb53j2q1cm45l" path="res://addons/popochiu/icons/dialog.png" id="6_y67sq"]
 
-[sub_resource type="Image" id="Image_3167j"]
+[sub_resource type="Image" id="Image_7cgh7"]
 data = {
 "data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 231, 255, 94, 94, 54, 255, 94, 94, 57, 255, 93, 93, 233, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 231, 255, 94, 94, 54, 255, 94, 94, 57, 255, 93, 93, 233, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 93, 93, 233, 255, 93, 93, 232, 255, 93, 93, 41, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 93, 93, 233, 255, 93, 93, 232, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 44, 255, 255, 255, 0, 255, 97, 97, 42, 255, 97, 97, 42, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 44, 255, 255, 255, 0, 255, 97, 97, 42, 255, 97, 97, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 235, 255, 94, 94, 234, 255, 95, 95, 43, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 235, 255, 94, 94, 234, 255, 95, 95, 43, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 235, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 233, 255, 95, 95, 59, 255, 96, 96, 61, 255, 93, 93, 235, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 233, 255, 95, 95, 59, 255, 96, 96, 61, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
 "format": "RGBA8",
@@ -17,10 +17,10 @@ data = {
 "width": 16
 }
 
-[sub_resource type="ImageTexture" id="ImageTexture_d4rdd"]
-image = SubResource("Image_3167j")
+[sub_resource type="ImageTexture" id="ImageTexture_160xc"]
+image = SubResource("Image_7cgh7")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tlvcc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3d3vn"]
 content_margin_left = 8.0
 content_margin_right = 8.0
 draw_center = false
@@ -30,7 +30,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.439216, 0.427451, 0.921569, 0.74902)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qbvsc"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3i8np"]
 content_margin_left = 8.0
 content_margin_right = 8.0
 draw_center = false
@@ -40,7 +40,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.556863, 0.313726, 0.160784, 0.74902)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhhu7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0h4j"]
 content_margin_left = 8.0
 content_margin_right = 8.0
 draw_center = false
@@ -50,7 +50,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.337255, 0.67451, 0.301961, 0.74902)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1oynp"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n6jew"]
 content_margin_left = 8.0
 content_margin_right = 8.0
 draw_center = false
@@ -71,7 +71,7 @@ metadata/_tab_index = 0
 layout_mode = 2
 placeholder_text = "Filter Popochiu objects"
 clear_button_enabled = true
-right_icon = SubResource("ImageTexture_d4rdd")
+right_icon = SubResource("ImageTexture_160xc")
 script = ExtResource("1_akrwb")
 
 [node name="MainScrollContainer" type="ScrollContainer" parent="."]
@@ -87,7 +87,7 @@ size_flags_vertical = 3
 
 [node name="RoomsGroup" parent="MainScrollContainer/VBoxContainer" instance=ExtResource("2_71uuj")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tlvcc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3d3vn")
 icon = ExtResource("3_v0n5j")
 color = Color(0.439216, 0.427451, 0.921569, 0.74902)
 title = "Rooms"
@@ -95,7 +95,7 @@ create_text = "Create room"
 
 [node name="CharactersGroup" parent="MainScrollContainer/VBoxContainer" instance=ExtResource("2_71uuj")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qbvsc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3i8np")
 icon = ExtResource("4_q3ysu")
 color = Color(0.556863, 0.313726, 0.160784, 0.74902)
 title = "Characters"
@@ -103,7 +103,7 @@ create_text = "Create character"
 
 [node name="ItemsGroup" parent="MainScrollContainer/VBoxContainer" instance=ExtResource("2_71uuj")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hhhu7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0h4j")
 icon = ExtResource("5_h6p8m")
 color = Color(0.337255, 0.67451, 0.301961, 0.74902)
 title = "Inventory items"
@@ -111,7 +111,7 @@ create_text = "Create inventory item"
 
 [node name="DialogsGroup" parent="MainScrollContainer/VBoxContainer" instance=ExtResource("2_71uuj")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1oynp")
+theme_override_styles/panel = SubResource("StyleBoxFlat_n6jew")
 icon = ExtResource("6_y67sq")
 color = Color(0.556863, 0.235294, 0.592157, 0.74902)
 title = "Dialog trees"

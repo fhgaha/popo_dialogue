@@ -205,7 +205,7 @@ const GUI_GAME_SCENE := GUI_GAME_FOLDER + "graphic_interface.tscn"
 const GUI_COMMANDS := GUI_GAME_FOLDER + "commands.gd"
 
 
-#region Public #####################################################################################
+#region Public ############dialogs#########################################################################
 # Verify if the folders (where Popochiu's objects will be) exists
 static func init_file_structure() -> bool:
 	var is_first_install := !DirAccess.dir_exists_absolute(BASE_DIR)

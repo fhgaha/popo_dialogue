@@ -64,7 +64,6 @@ func show_as_not_in_core() -> void:
 	label.modulate.a = 0.5
 	menu_popup.set_item_disabled(menu_popup.get_item_index(Options.ADD_TO_CORE), false)
 
-
 #endregion
 
 #region Private ####################################################################################

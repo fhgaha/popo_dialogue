@@ -1,29 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b55ialbvpilxv"]
+[gd_scene load_steps=5 format=3 uid="uid://b83mj7h5dddwo"]
 
-[ext_resource type="Script" path="res://addons/popochiu/editor/main_dock/popochiu_group/popochiu_group.gd" id="1_lumyt"]
+[ext_resource type="PackedScene" uid="uid://dwtwuqw2hpdpe" path="res://addons/popochiu/editor/main_dock/popochiu_row/popochiu_row.tscn" id="1_2f3ce"]
+[ext_resource type="Script" path="res://addons/popochiu/editor/main_dock/popochiu_row/object_row/popochiu_object_row.gd" id="2_cng75"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kxxa0"]
-content_margin_left = 8.0
-content_margin_right = 8.0
-draw_center = false
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.6, 0.6, 0.6, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t8mu1"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.6, 0.6, 0.6, 0.211765)
-draw_center = false
-corner_detail = 5
-expand_margin_left = 4.0
-expand_margin_right = 4.0
-
-[sub_resource type="Image" id="Image_83lhp"]
+[sub_resource type="Image" id="Image_ss8be"]
 data = {
 "data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 94, 94, 127, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 231, 255, 94, 94, 54, 255, 94, 94, 57, 255, 93, 93, 233, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 231, 255, 94, 94, 54, 255, 94, 94, 57, 255, 93, 93, 233, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 93, 93, 233, 255, 93, 93, 232, 255, 93, 93, 41, 255, 255, 255, 0, 255, 255, 255, 0, 255, 97, 97, 42, 255, 93, 93, 233, 255, 93, 93, 232, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 44, 255, 255, 255, 0, 255, 97, 97, 42, 255, 97, 97, 42, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 44, 255, 255, 255, 0, 255, 97, 97, 42, 255, 97, 97, 42, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 235, 255, 94, 94, 234, 255, 95, 95, 43, 255, 255, 255, 0, 255, 255, 255, 0, 255, 96, 96, 45, 255, 93, 93, 235, 255, 94, 94, 234, 255, 95, 95, 43, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 235, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 233, 255, 95, 95, 59, 255, 96, 96, 61, 255, 93, 93, 235, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 233, 255, 95, 95, 59, 255, 96, 96, 61, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 93, 93, 255, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
 "format": "RGBA8",
@@ -32,60 +12,55 @@ data = {
 "width": 16
 }
 
-[sub_resource type="ImageTexture" id="ImageTexture_82ya6"]
-image = SubResource("Image_83lhp")
+[sub_resource type="ImageTexture" id="ImageTexture_qke82"]
+image = SubResource("Image_ss8be")
 
-[node name="PopochiuGroup" type="PanelContainer"]
-offset_right = 320.0
-offset_bottom = 24.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_kxxa0")
-script = ExtResource("1_lumyt")
-is_open = false
+[node name="PopochiuDialogRow" instance=ExtResource("1_2f3ce")]
+script = ExtResource("2_cng75")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
+[node name="Label" parent="HBoxContainer" index="0"]
+text = "PopochiuDialogRow"
 
-[node name="Header" type="PanelContainer" parent="VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_t8mu1")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Header"]
-layout_mode = 2
-
-[node name="Arrow" type="TextureRect" parent="VBoxContainer/Header/HBoxContainer"]
+[node name="BtnOpen" type="Button" parent="Panel/ButtonsContainer" index="0"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = SubResource("ImageTexture_82ya6")
-stretch_mode = 4
+size_flags_vertical = 3
+tooltip_text = "Open in Editor"
+icon = SubResource("ImageTexture_qke82")
+flat = true
 
-[node name="Icon" type="TextureRect" parent="VBoxContainer/Header/HBoxContainer"]
+[node name="BtnScript" type="Button" parent="Panel/ButtonsContainer" index="1"]
 unique_name_in_owner = true
-texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
+tooltip_text = "Open in Script"
+icon = SubResource("ImageTexture_qke82")
+flat = true
 
-[node name="Title" type="Label" parent="VBoxContainer/Header/HBoxContainer"]
+[node name="BtnState" type="Button" parent="Panel/ButtonsContainer" index="2"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Group"
+size_flags_horizontal = 4
+size_flags_vertical = 3
+tooltip_text = "Open state"
+icon = SubResource("ImageTexture_qke82")
+flat = true
 
-[node name="Body" type="VBoxContainer" parent="VBoxContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-
-[node name="BtnCreate" type="Button" parent="VBoxContainer/Body"]
+[node name="BtnStateScript" type="Button" parent="Panel/ButtonsContainer" index="3"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 8
-icon = SubResource("ImageTexture_82ya6")
+size_flags_horizontal = 4
+size_flags_vertical = 3
+tooltip_text = "Open state Script"
+icon = SubResource("ImageTexture_qke82")
+flat = true
 
-[node name="List" type="VBoxContainer" parent="VBoxContainer/Body"]
-unique_name_in_owner = true
-layout_mode = 2
+[node name="BtnMenu" parent="Panel/ButtonsContainer" index="4"]
+icon = SubResource("ImageTexture_qke82")
+item_count = 1
+popup/item_0/text = "Remove"
+popup/item_0/icon = SubResource("ImageTexture_qke82")
+popup/item_0/id = 0
+popup/item_0/disabled = true

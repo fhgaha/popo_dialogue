@@ -1,17 +1,16 @@
 @tool
 extends "res://addons/popochiu/editor/main_dock/popochiu_row/object_row/popochiu_object_row.gd"
 
-enum CharacterOptions {
+enum DialogOptions {
 	DELETE = MenuOptions.DELETE,
 	ADD_TO_CORE = Options.ADD_TO_CORE,
-	SET_AS_PC,
+	USE_GRAPH,
 }
 
-const TAG_ICON = preload("res://addons/popochiu/icons/player_character.png")
+const TAG_ICON = preload("res://addons/popochiu/editor/dialogue_graph/icons/GraphEditGrey.svg")
 const STATE_TEMPLATE = "res://addons/popochiu/engine/templates/character_state_template.gd"
-const DIALOG_TEMPLATE = ""
 
-var is_pc := false : set = set_is_pc
+var use_graph := false : set = set_use_graph
 
 
 #region Godot ######################################################################################
@@ -30,22 +29,21 @@ func _get_state_template() -> Script:
 
 
 func _clear_tag() -> void:
-	if is_pc:
-		is_pc = false
+	if use_graph:
+		use_graph = false
 
 
 #endregion
 
 #region SetGet #####################################################################################
-func set_is_pc(value: bool) -> void:
-	is_pc = value
+func set_use_graph(value: bool) -> void:
+	use_graph = value
 	
-	if is_pc:
-		PopochiuEditorHelper.signal_bus.pc_changed.emit(name)
+	if use_graph:
+		PopochiuEditorHelper.signal_bus.dialog_using_graph_changed.emit(name, use_graph)
 	
 	tag.visible = value
-	menu_popup.set_item_disabled(menu_popup.get_item_index(CharacterOptions.SET_AS_PC), value)
-
+	#menu_popup.set_item_disabled(menu_popup.get_item_index(DialogOptions.USE_GRAPH), value)
 
 #endregion
 
@@ -53,25 +51,24 @@ func set_is_pc(value: bool) -> void:
 func _get_menu_cfg() -> Array:
 	return [
 		{
-			id = CharacterOptions.SET_AS_PC,
+			id = DialogOptions.USE_GRAPH,
 			icon = TAG_ICON,
-			label = "Set as Player-controlled Character (PC)",
+			label = "Use Graph",
 		},
 	] + super()
 
 
 func _menu_item_pressed(id: int) -> void:
 	match id:
-		CharacterOptions.SET_AS_PC:
-			self.is_pc = true
+		DialogOptions.USE_GRAPH:
+			self.use_graph = !self.use_graph
 		_:
 			super(id)
-
 
 func _remove_from_core() -> void:
 	# Delete the object from Popochiu
 	PopochiuResources.remove_autoload_obj(PopochiuResources.C_SNGL, name)
-	PopochiuResources.erase_data_value("characters", str(name))
+	PopochiuResources.erase_data_value("dialogs", str(name))
 	
 	# Continue with the deletion flow
 	super()
