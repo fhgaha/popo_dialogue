@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d312sd0lfguw2"
-path="res://.godot/imported/GraphEdit.svg-d022543982afa674d60be0a5c978ebd6.ctex"
+uid="uid://bfujan4m23mt1"
+path="res://.godot/imported/GraphEditGreenDark.svg-83ecb2e623c56888479da4be2e2ea47d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/popochiu/editor/dialogue_graph/icons/GraphEdit.svg"
-dest_files=["res://.godot/imported/GraphEdit.svg-d022543982afa674d60be0a5c978ebd6.ctex"]
+source_file="res://addons/popochiu/editor/dialogue_graph/icons/GraphEditGreenDark.svg"
+dest_files=["res://.godot/imported/GraphEditGreenDark.svg-83ecb2e623c56888479da4be2e2ea47d.ctex"]
 
 [params]
 

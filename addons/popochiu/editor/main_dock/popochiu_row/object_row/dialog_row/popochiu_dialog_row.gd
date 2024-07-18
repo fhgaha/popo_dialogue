@@ -7,7 +7,7 @@ enum DialogOptions {
 	USE_GRAPH,
 }
 
-const TAG_ICON = preload("res://addons/popochiu/editor/dialogue_graph/icons/GraphEditGrey.svg")
+const TAG_ICON = preload("res://addons/popochiu/editor/dialogue_graph/icons/GraphEditGreenDark.svg")
 const STATE_TEMPLATE = "res://addons/popochiu/engine/templates/character_state_template.gd"
 
 var use_graph := false : set = set_use_graph
@@ -53,7 +53,8 @@ func _get_menu_cfg() -> Array:
 		{
 			id = DialogOptions.USE_GRAPH,
 			icon = TAG_ICON,
-			label = "Use Graph",
+			label = 
+			"Use Graph",
 		},
 	] + super()
 
