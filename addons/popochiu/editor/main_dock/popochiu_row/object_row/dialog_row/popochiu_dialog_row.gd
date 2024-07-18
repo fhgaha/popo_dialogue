@@ -12,14 +12,12 @@ const STATE_TEMPLATE = "res://addons/popochiu/engine/templates/character_state_t
 
 var use_graph := false : set = set_use_graph
 
-
 #region Godot ######################################################################################
 func _ready() -> void:
 	super()
 	
 	# Assign icons
 	tag.texture = TAG_ICON
-
 
 #endregion
 
@@ -39,8 +37,7 @@ func _clear_tag() -> void:
 func set_use_graph(value: bool) -> void:
 	use_graph = value
 	
-	if use_graph:
-		PopochiuEditorHelper.signal_bus.dialog_using_graph_changed.emit(name, use_graph)
+	PopochiuEditorHelper.signal_bus.dialog_using_graph_changed.emit(name, use_graph)
 	
 	tag.visible = value
 	#menu_popup.set_item_disabled(menu_popup.get_item_index(DialogOptions.USE_GRAPH), value)
@@ -53,8 +50,7 @@ func _get_menu_cfg() -> Array:
 		{
 			id = DialogOptions.USE_GRAPH,
 			icon = TAG_ICON,
-			label = 
-			"Use Graph",
+			label = "Use Graph",
 		},
 	] + super()
 

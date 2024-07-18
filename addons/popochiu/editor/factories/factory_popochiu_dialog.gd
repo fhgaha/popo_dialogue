@@ -41,6 +41,9 @@ func create(obj_name: String) -> int:
 	if result_code != ResultCodes.SUCCESS: return result_code
 	
 	#************dialogue graph************
+	result_code = _copy_graph_script_template("dialog_graph")
+	if result_code != ResultCodes.SUCCESS: return result_code
+	
 	var path = _path_resource.get_slice('.', 0) + "_graph.res"
 	if ResourceSaver.save(GraphData.new(), path) == OK:
 		print("PopochiuDialogFactory: graph saved")

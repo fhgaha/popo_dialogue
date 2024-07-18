@@ -9,7 +9,6 @@ enum CharacterOptions {
 
 const TAG_ICON = preload("res://addons/popochiu/icons/player_character.png")
 const STATE_TEMPLATE = "res://addons/popochiu/engine/templates/character_state_template.gd"
-const DIALOG_TEMPLATE = ""
 
 var is_pc := false : set = set_is_pc
 

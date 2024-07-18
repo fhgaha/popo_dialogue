@@ -60,7 +60,8 @@ func _ready() -> void:
 	PopochiuEditorHelper.signal_bus.main_scene_changed.connect(_set_main_scene)
 	PopochiuEditorHelper.signal_bus.pc_changed.connect(_set_pc)
 	PopochiuEditorHelper.signal_bus.main_object_added.connect(_add_to_list)
-
+	PopochiuEditorHelper.signal_bus.dialog_using_graph_changed.connect(
+		_on_dialog_using_graph_changed)
 
 #endregion
 
@@ -105,6 +106,10 @@ func _set_pc(script_name: String) -> void:
 	
 	_types[PopochiuResources.Types.CHARACTER].group.clear_favs()
 
+func _on_dialog_using_graph_changed(script_name: String, use_graph: bool) -> void:
+	#signals here come three times for some reason
+	prints("script name:", script_name, "use grph:", use_graph)
+	pass
 
 func _add_to_list(type: int, name_to_add: String) -> PopochiuObjectRow:
 	var row := _create_object_row(type, name_to_add)

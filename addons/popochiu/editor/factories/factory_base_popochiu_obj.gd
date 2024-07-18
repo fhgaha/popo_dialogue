@@ -110,6 +110,24 @@ func _copy_script_template() -> int:
 
 	return ResultCodes.SUCCESS
 
+#*********dialogue graph*********
+func _copy_graph_script_template(type_label: String) -> int:
+	prints(BASE_SCRIPT_TEMPLATE, type_label, _path_script)
+	
+	var _script: Script = load(
+		BASE_SCRIPT_TEMPLATE % type_label
+	).duplicate()
+	
+	var path = _path_script.get_slice('.', 0) + "_graph.gd"
+	if ResourceSaver.save( _script, path) != OK:
+		PopochiuUtils.print_error(
+			"Could not create %s script: %s" %
+			[type_label, path]
+		)
+		return ResultCodes.ERR_CANT_CREATE_OBJ_SCRIPT
+
+	return ResultCodes.SUCCESS
+#*********dialogue graph*********
 
 ## Create the script for the object based on the template of its type.
 func _create_script_from_template() -> int:

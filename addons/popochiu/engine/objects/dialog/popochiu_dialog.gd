@@ -8,28 +8,13 @@ extends Resource
 @export var script_name := ''
 ## The array of [PopochiuDialogOption] to show on screen when the dialog is running.
 @export var options: Array[PopochiuDialogOption] = [] : set = set_options
-
+var use_graph := false
 
 #region Virtual ####################################################################################
 ## Called when the dialog starts. [b]You have to use an [code]await[/code] in this method in order
 ## to make the dialog to work properly[/b].
 ## [i]Virtual[/i].
 func _on_start() -> void:
-	#********dialogue graph********
-	var graph_path: String = resource_path.get_slice('.', 0) + "_graph.res"
-	graph = load(graph_path)
-	var data: GraphData.ToPopochiuDialogue = graph.handle()
-	for cb: Callable in data.callables:
-		await cb.call()
-	if data.options.size() == 0:
-		options.clear()
-	var opts: Array[PopochiuDialogOption] = []
-	for op: String in data.options:
-		var popo_opt:PopochiuDialogOption = create_opt(op, op)
-		opts.append(popo_opt)
-	update_options(opts)
-	_show_options()
-	#********dialogue graph********
 	pass
 
 
@@ -37,18 +22,6 @@ func _on_start() -> void:
 ## [param opt] can be used to check which was the selected option.
 ## [i]Virtual[/i].
 func _option_selected(opt: PopochiuDialogOption) -> void:
-	#********dialogue graph********
-	var data: GraphData.ToPopochiuDialogue = graph.handle(opt.text)
-	for cb: Callable in data.callables:
-		await cb.call()
-	var opts: Array[PopochiuDialogOption] = []
-	for op: String in data.options.filter(func(opt: String): return !opt.is_empty()):
-		var popo_opt:PopochiuDialogOption = create_opt(op, op)
-		opts.append(popo_opt)
-	update_options(opts)
-	
-	_show_options()
-	#********dialogue graph********
 	pass
 
 
