@@ -40,7 +40,10 @@ func set_use_graph(value: bool) -> void:
 	PopochiuEditorHelper.signal_bus.dialog_using_graph_changed.emit(name, use_graph)
 	
 	tag.visible = value
-	#menu_popup.set_item_disabled(menu_popup.get_item_index(DialogOptions.USE_GRAPH), value)
+	menu_popup.set_item_text(
+		menu_popup.get_item_index(DialogOptions.USE_GRAPH),
+		"Use Script" if value else "Use Graph"
+	)
 
 #endregion
 
@@ -61,6 +64,7 @@ func _menu_item_pressed(id: int) -> void:
 			use_graph = !use_graph
 		_:
 			super(id)
+
 
 func _remove_from_core() -> void:
 	# Delete the object from Popochiu
