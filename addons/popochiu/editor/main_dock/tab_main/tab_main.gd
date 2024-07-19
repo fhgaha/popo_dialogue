@@ -60,8 +60,7 @@ func _ready() -> void:
 	PopochiuEditorHelper.signal_bus.main_scene_changed.connect(_set_main_scene)
 	PopochiuEditorHelper.signal_bus.pc_changed.connect(_set_pc)
 	PopochiuEditorHelper.signal_bus.main_object_added.connect(_add_to_list)
-	PopochiuEditorHelper.signal_bus.dialog_using_graph_changed.connect(
-		_on_dialog_using_graph_changed)
+	PopochiuEditorHelper.signal_bus.dialog_using_graph_changed.connect(_set_use_graph)
 
 #endregion
 
@@ -106,10 +105,27 @@ func _set_pc(script_name: String) -> void:
 	
 	_types[PopochiuResources.Types.CHARACTER].group.clear_favs()
 
-func _on_dialog_using_graph_changed(script_name: String, use_graph: bool) -> void:
+func _set_use_graph(script_name: String, use_graph: bool) -> void:
 	#signals here come three times for some reason
-	prints("script name:", script_name, "use grph:", use_graph)
-	pass
+	
+	#var scn = _types[PopochiuResources.Types.DIALOG].scene.replace(
+		#"%s", script_name.to_lower())
+	#var dlg: PopochiuDialog = load(scn)
+	#dlg.use_graph = use_graph
+	
+	#assert(
+		#PopochiuResources.set_data_value("use_graph", script_name, "") == OK,
+		#"[Popochiu] Couldn't set use graph for %s" % script_name
+	#)
+	
+	if use_graph:
+		assert(
+			PopochiuResources.set_data_value("use_graph", script_name, "") == OK,
+			"[Popochiu] Couldn't set use graph for %s" % script_name
+		)
+	else:
+		PopochiuResources.erase_data_value("use_graph", script_name)
+
 
 func _add_to_list(type: int, name_to_add: String) -> PopochiuObjectRow:
 	var row := _create_object_row(type, name_to_add)
@@ -172,7 +188,9 @@ func _create_row(type_key: int, resource: Resource) -> void:
 				row.is_on_start = true
 		PopochiuResources.Types.DIALOG:
 			is_in_core = PopochiuResources.has_data_value("dialogs", resource.script_name)
-			row.use_graph = false
+			
+			if PopochiuResources.has_data_value("use_graph", resource.script_name):
+				row.use_graph = true
 	
 	if not is_in_core:
 		row.show_as_not_in_core()

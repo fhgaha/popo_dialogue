@@ -8,7 +8,7 @@ extends Resource
 @export var script_name := ''
 ## The array of [PopochiuDialogOption] to show on screen when the dialog is running.
 @export var options: Array[PopochiuDialogOption] = [] : set = set_options
-var use_graph := false
+@export var use_graph := false
 
 #region Virtual ####################################################################################
 ## Called when the dialog starts. [b]You have to use an [code]await[/code] in this method in order

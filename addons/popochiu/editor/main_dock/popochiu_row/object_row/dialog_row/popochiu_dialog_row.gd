@@ -8,7 +8,8 @@ enum DialogOptions {
 }
 
 const TAG_ICON = preload("res://addons/popochiu/editor/dialogue_graph/icons/GraphEditGreenDark.svg")
-const STATE_TEMPLATE = "res://addons/popochiu/engine/templates/character_state_template.gd"
+const STATE_TEMPLATE = "res://addons/popochiu/engine/templates/dialog_template.gd"
+const STATE_GRAPH_TEMPLATE = "res://addons/popochiu/engine/templates/dialog_graph_template.gd"
 
 var use_graph := false : set = set_use_graph
 
@@ -23,13 +24,12 @@ func _ready() -> void:
 
 #region Virtual ####################################################################################
 func _get_state_template() -> Script:
-	return load(STATE_TEMPLATE)
+	return load(STATE_GRAPH_TEMPLATE)
 
 
 func _clear_tag() -> void:
 	if use_graph:
 		use_graph = false
-
 
 #endregion
 
@@ -58,14 +58,15 @@ func _get_menu_cfg() -> Array:
 func _menu_item_pressed(id: int) -> void:
 	match id:
 		DialogOptions.USE_GRAPH:
-			self.use_graph = !self.use_graph
+			use_graph = !use_graph
 		_:
 			super(id)
 
 func _remove_from_core() -> void:
 	# Delete the object from Popochiu
-	PopochiuResources.remove_autoload_obj(PopochiuResources.C_SNGL, name)
+	PopochiuResources.remove_autoload_obj(PopochiuResources.D_SNGL, name)
 	PopochiuResources.erase_data_value("dialogs", str(name))
+	PopochiuResources.erase_data_value("use_grpah", str(name))
 	
 	# Continue with the deletion flow
 	super()
