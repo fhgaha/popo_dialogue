@@ -1,5 +1,4 @@
-x In dialogue nodes punctuation is white
-- Condition node expands vertically too much
 - Change graph node color option
 - Add error messages for two starts, etc
 
+PopochiuResources.has_data_value("use_graph", resource.script_name)

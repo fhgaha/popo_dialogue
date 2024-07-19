@@ -1,6 +1,7 @@
 @tool
 extends PopochiuDialog
 
+var graph: GraphData
 
 #region Virtual ####################################################################################
 func _on_start() -> void:
@@ -43,5 +44,15 @@ func _on_save() -> Dictionary:
 func _on_load(data: Dictionary) -> void:
 	prints(data)
 
-
 #endregion
+
+func update_options(array: Array[PopochiuDialogOption]) -> void:
+	options.clear()
+	options.append_array(array)
+
+func create_opt(id: String, text: String, visible: bool = true) -> PopochiuDialogOption:
+	var opt = PopochiuDialogOption.new()
+	opt.id      = id
+	opt.text    = text
+	opt.visible = visible
+	return opt

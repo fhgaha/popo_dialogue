@@ -107,17 +107,6 @@ func _set_pc(script_name: String) -> void:
 
 func _set_use_graph(script_name: String, use_graph: bool) -> void:
 	#signals here come three times for some reason
-	
-	#var scn = _types[PopochiuResources.Types.DIALOG].scene.replace(
-		#"%s", script_name.to_lower())
-	#var dlg: PopochiuDialog = load(scn)
-	#dlg.use_graph = use_graph
-	
-	#assert(
-		#PopochiuResources.set_data_value("use_graph", script_name, "") == OK,
-		#"[Popochiu] Couldn't set use graph for %s" % script_name
-	#)
-	
 	if use_graph:
 		assert(
 			PopochiuResources.set_data_value("use_graph", script_name, "") == OK,

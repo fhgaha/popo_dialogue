@@ -11,6 +11,7 @@ func _on_start() -> void:
 #	await C.player.say("Hi")
 #	await C.Popsy.say("Oh! Hi...")
 	# (!) It MUST always use an await
+	await C.Main.say("This is script dialog!")
 	await E.get_tree().process_frame
 
 

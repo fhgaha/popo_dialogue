@@ -1,10 +1,9 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://q57ql5wfkm8o"]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://j7swyp2tnbby"]
 
-[ext_resource type="Script" path="res://game/dialogs/first/dialog_first.gd" id="1_moq1a"]
+[ext_resource type="Script" path="res://game/dialogs/first/dialog_first.gd" id="1_borcx"]
 
 [resource]
 resource_name = "First"
-script = ExtResource("1_moq1a")
+script = ExtResource("1_borcx")
 script_name = "First"
 options = Array[Resource("res://addons/popochiu/engine/objects/dialog/popochiu_dialog_option.gd")]([])
-use_graph = false

@@ -8,7 +8,7 @@ extends Resource
 @export var script_name := ''
 ## The array of [PopochiuDialogOption] to show on screen when the dialog is running.
 @export var options: Array[PopochiuDialogOption] = [] : set = set_options
-@export var use_graph := false
+var use_graph := false
 
 #region Virtual ####################################################################################
 ## Called when the dialog starts. [b]You have to use an [code]await[/code] in this method in order
@@ -50,6 +50,16 @@ func queue_start() -> Callable:
 ## Starts this dialog, then [method _on_start] is called.
 func start() -> void:
 	if D.current_dialog == self:
+		return
+	
+	#terrible! rewrite this!
+	if (!get_script().get_path().contains("graph")
+	&& PopochiuResources.has_data_value("use_graph", script_name)
+	):
+		var graph_script_path = resource_path.get_slice('.', 0) + "_graph.gd"
+		var scr = load(graph_script_path)
+		set_script(scr)
+		start()
 		return
 	
 	# Start this dialog
@@ -166,20 +176,4 @@ func _on_option_selected(opt: PopochiuDialogOption) -> void:
 	
 	_option_selected(opt)
 
-
 #endregion
-
-
-#********dialogue graph********
-var graph: GraphData
-
-func update_options(array: Array[PopochiuDialogOption]) -> void:
-	options.clear()
-	options.append_array(array)
-
-func create_opt(id: String, text: String, visible: bool = true) -> PopochiuDialogOption:
-	var opt = PopochiuDialogOption.new()
-	opt.id      = id
-	opt.text    = text
-	opt.visible = visible
-	return opt
