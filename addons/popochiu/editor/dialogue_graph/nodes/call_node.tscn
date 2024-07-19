@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlf8l1mj6stmc"]
+
+[ext_resource type="Script" path="res://addons/popochiu/editor/dialogue_graph/nodes/call_node.gd" id="1_oqu4n"]
+
+[node name="CallNode" type="GraphNode"]
+offset_right = 186.0
+offset_bottom = 112.0
+resizable = true
+title = "CallNode"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = true
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("1_oqu4n")
+
+[node name="Slot1" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Slot2" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="CodeEdit" type="TextEdit" parent="Slot2"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+placeholder_text = "Type a method from
+ the related script"

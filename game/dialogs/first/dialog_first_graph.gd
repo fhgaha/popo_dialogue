@@ -56,3 +56,15 @@ func create_opt(id: String, text: String, visible: bool = true) -> PopochiuDialo
 	opt.text    = text
 	opt.visible = visible
 	return opt
+
+func evaluate(command, variable_names = [], variable_values = []) -> void:
+	var expression = Expression.new()
+	var error = expression.parse(command, variable_names)
+	if error != OK:
+		push_error(expression.get_error_text())
+		return
+	
+	var result = await expression.execute(variable_values, self)
+	
+	if expression.has_execute_failed():
+		push_error("Could'nt execute the expression: %s" % result)

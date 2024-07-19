@@ -45,12 +45,19 @@ func handle(option: String = "", data: ToPopochiuDialogue = null) -> ToPopochiuD
 		handle("", data)
 	elif cur_node is SetNodeData:
 		handle("", data)
+	elif cur_node is CallNodeData:
+		cur_node = cur_node as CallNodeData
+		# execure text
+		D.current_dialog.evaluate(cur_node.text)
+		handle("", data)
 	
 	return data
 
 func get_start_node() -> NodeData:
-	assert(nodes.any(func(n: NodeData): return n is StartNodeData),
-		"No start node created")
+	assert(
+		nodes.any(func(n: NodeData): return n is StartNodeData),
+		"No start node created"
+	)
 	return nodes.filter(func(n: NodeData): return n is StartNodeData)[0]
 
 func next(node: NodeData, option: String = "") -> NodeData:

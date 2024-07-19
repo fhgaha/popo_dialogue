@@ -53,7 +53,8 @@ func _on_add_node_menu_id_pressed(id: int) -> void:
 		1: add_dialogue_node()
 		2: add_condition_node()
 		3: add_set_node()
-		4: add_test_node()
+		4: add_call_node()
+		1000: add_test_node()
 
 func add_start_node() -> void:
 	var start_node = GraphNodeFactory.create_start_node()
@@ -97,7 +98,14 @@ func add_set_node() -> void:
 	set_node_pos_to_mouse_pos(node)
 	update_slots_color([node])
 
-func add_test_node():
+func add_call_node() -> void:
+	var node = GraphNodeFactory.create_call_node()
+	#node.name = "CallNode"
+	graph_edit.add_child(node)
+	set_node_pos_to_mouse_pos(node)
+	update_slots_color([node])
+
+func add_test_node() -> void:
 	var node = GraphNodeFactory.create_test_node()
 	graph_edit.add_child(node)
 	set_node_pos_to_mouse_pos(node)
@@ -136,11 +144,10 @@ func save_data(save_path: String) -> void:
 	
 	graph_data.variables = variables.get_data()
 	
-	if ResourceSaver.save(graph_data, save_path) == OK:
-		#print("Graph saved")
-		pass
-	else:
-		print("Error saving graph_data")
+	assert(
+		ResourceSaver.save(graph_data, save_path) == OK,
+		"Error saving graph data"
+	)
 
 func _on_load_pressed() -> void:
 	load_dialog.root_subfolder = "res://game/dialogs"
@@ -154,8 +161,7 @@ func load_data(file_path: String):
 	if ResourceLoader.exists(file_path):
 		var graph_data = ResourceLoader.load(file_path)
 		if graph_data is GraphData:
-			#awaiting for connections to load so update_slots_color()
-			#will work
+			#awaiting for connections to load so update_slots_color() would work
 			await init_graph(graph_data)
 			file_name_label.text = graph_data.resource_name
 		else:
