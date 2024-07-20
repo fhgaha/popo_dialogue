@@ -53,12 +53,11 @@ func start() -> void:
 		return
 	
 	#terrible! rewrite this!
-	if (!get_script().get_path().contains("graph")
-	&& PopochiuResources.has_data_value("use_graph", script_name)
-	):
-		var graph_script_path = resource_path.get_slice('.', 0) + "_graph.gd"
-		var scr = load(graph_script_path)
-		set_script(scr)
+	#this gets reseted to script by itself from somewhere else
+	if (PopochiuResources.has_data_value("use_graph", script_name)
+	&& !get_script().get_path().contains("graph")):
+		var script_path = resource_path.get_slice('.', 0) + "_graph.gd"
+		set_script(load(script_path))
 		start()
 		return
 	
